@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos La Granja 🎮 — Boneless La Granja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+        * { scroll-behavior: smooth; }
+        body { font-family: "Poppins", sans-serif; background: #111111; color: #fff; }
+        .navbar { background: rgba(15,15,15,0.97); backdrop-filter: blur(12px); border-bottom: 2px solid #ff4500; }
+        .nav-link { color: #ccc; font-weight: 600; font-size: 0.82rem; padding: 6px 12px; border-radius: 8px; transition: all 0.2s; text-decoration: none; }
+        .nav-link:hover, .nav-link.active { color: #ff6b35; background: rgba(255,107,53,0.1); }
+        .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html">
+                    <img src="https://i.ibb.co/1JvtqzTZ/BLG2026.png" alt="Boneless La Granja" class="h-12 w-12 object-contain">
+                </a>
+                <div class="flex items-center gap-3">
+                    <a href="index.html" class="nav-link">← Regresar al menú</a>
+                    <a href="index.html#boneless" class="hidden md:inline nav-link">🐔 Pedir</a>
+                    <a href="index.html#fidelidad" class="hidden md:inline nav-link">🏆 Club Granja</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- JUEGOS LA GRANJA -->
+    <section id="juegos" style="background:#0a0a0a;border-top:2px solid #ff4500;" class="py-12 px-4">
+        <div class="container mx-auto max-w-2xl">
+            <div class="text-center mb-8">
+                <div class="text-5xl mb-3">🎮</div>
+                <h2 class="text-3xl font-black text-orange-400 mb-2">Juegos La Granja</h2>
+                <p class="text-gray-400 text-sm">¡Juega mientras esperas tu pedido!</p>
+            </div>
+
+            <!-- Tarjeta del juego -->
+            <div style="background:#1e1e1e;border:1px solid #2a2a2a;border-radius:20px;overflow:hidden;">
+                <div class="bg-gradient-to-r from-orange-600 to-red-700 p-4 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-xl font-black text-white">🐶 Salva a las Gallinas</h3>
+                        <p class="text-orange-200 text-xs mt-1">Atrapa las gallinas antes de que caigan al suelo</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-orange-200">Récord</p>
+                        <p class="text-2xl font-black text-yellow-300" id="gameHighScore">0</p>
+                    </div>
+                </div>
+
+                <!-- Canvas del juego -->
+                <div class="relative" style="background:#1a1a2e;">
+                    <canvas id="gameCanvas" style="display:block;margin:0 auto;max-width:100%;image-rendering:pixelated;cursor:none;"></canvas>
+
+                    <!-- Pantalla inicio -->
+                    <div id="gameStartScreen" class="absolute inset-0 flex flex-col items-center justify-center" style="background:rgba(0,0,0,0.85);">
+                        <div style="font-size:4rem;image-rendering:pixelated;" class="mb-4">🐶</div>
+                        <h3 class="text-2xl font-black text-white mb-2">Salva a las Gallinas</h3>
+                        <p class="text-gray-400 text-sm mb-1 px-8 text-center">Mueve al bulldog con el mouse o con el dedo para atrapar las gallinas con la canasta</p>
+                        <p class="text-orange-400 text-sm mb-6 font-bold">🥚 Cada gallina atrapada = 10 pts</p>
+                        <button onclick="startGame()" class="bg-gradient-to-r from-orange-500 to-red-500 text-white font-black px-8 py-3 rounded-full text-lg hover:scale-105 transition">
+                            ¡Jugar! 🎮
+                        </button>
+                    </div>
+
+                    <!-- Pantalla game over -->
+                    <div id="gameOverScreen" class="absolute inset-0 hidden flex-col items-center justify-center" style="background:rgba(0,0,0,0.88);">
+                        <div class="text-5xl mb-3">😢</div>
+                        <h3 class="text-2xl font-black text-white mb-1">¡Se cayó una gallina!</h3>
+                        <p class="text-gray-400 text-sm mb-4">El bulldog está triste...</p>
+                        <div style="background:#2a2a2a;border-radius:16px;padding:20px 32px;" class="text-center mb-6">
+                            <p class="text-gray-400 text-sm">Puntaje</p>
+                            <p class="text-5xl font-black text-orange-400" id="gameOverScore">0</p>
+                            <p class="text-gray-400 text-xs mt-1" id="gameOverRecord"></p>
+                        </div>
+                        <button onclick="startGame()" class="bg-gradient-to-r from-orange-500 to-red-500 text-white font-black px-8 py-3 rounded-full text-lg hover:scale-105 transition mb-3">
+                            Jugar de nuevo 🔄
+                        </button>
+                    </div>
+                </div>
+
+                <!-- HUD durante el juego -->
+                <div id="gameHUD" class="hidden px-5 py-3 flex justify-between items-center" style="background:#111;">
+                    <div class="flex items-center gap-2">
+                        <span class="text-yellow-400 font-black text-lg">⭐</span>
+                        <span class="text-white font-black text-xl" id="gameScore">0</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="gameLives">❤️❤️❤️</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-gray-400 text-sm">Nivel</span>
+                        <span class="text-orange-400 font-black" id="gameLevel">1</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center text-gray-600 text-xs mt-4">🎮 El juego funciona sin internet · Solo para diversión</p>
+
+            <!-- BLOCK BLAST -->
+            <div style="background:#1e1e1e;border:1px solid #2a2a2a;border-radius:20px;overflow:hidden;margin-top:24px;">
+                <div class="bg-gradient-to-r from-purple-700 to-indigo-700 p-4 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-xl font-black text-white">🟦 Block Blast</h3>
+                        <p class="text-purple-200 text-xs mt-1">Arrastra piezas · llena filas y columnas · modo clásico y ranked</p>
+                    </div>
+                    <span style="background:rgba(255,107,255,0.2);color:#ff6bff;border:1px solid rgba(255,107,255,0.4);font-size:10px;font-weight:900;padding:3px 10px;border-radius:20px;">NUEVO</span>
+                </div>
+                <div style="width:100%;height:680px;">
+                    <iframe src="block_blast.html" style="width:100%;height:100%;border:none;display:block;" allow="autoplay" title="Block Blast"></iframe>
+                </div>
+            </div>
+
+            <!-- Controles de música -->
+            <div style="background:#1e1e1e;border:1px solid #2a2a2a;border-radius:16px;padding:16px;" class="mt-6 flex items-center justify-between gap-4">
+                <div>
+                    <p class="text-white font-black text-sm">🪗 Corrido Norteño</p>
+                    <p class="text-gray-500 text-xs">Estilo Reynosa — Boneless La Granja</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <input type="range" id="musicVol" min="0" max="100" value="40" style="accent-color:#ff4500;width:80px;" oninput="setMusicVol(this.value)">
+                    <button id="musicBtn" onclick="toggleMusic()" style="background:#2a2a2a;border:1px solid #444;color:#fff;border-radius:99px;padding:8px 16px;font-weight:900;font-size:0.85rem;" class="hover:border-orange-500 transition">▶ Play</button>
+                </div>
+            </div>
+
+            <p class="text-center text-gray-600 text-xs mt-4">🎮 Juegos sin internet · Solo para diversión 🐔</p>
+        </div>
+    </section>
+
+    <footer style="background:#0d0d0d;border-top:1px solid #222;" class="text-center py-6 mt-8">
+        <p class="text-gray-600 text-sm">© 2026 <span class="text-orange-400 font-bold">Boneless La Granja</span> · Reynosa, Tamps.</p>
+        <a href="index.html" class="text-orange-400 font-bold text-sm hover:underline mt-1 inline-block">← Volver al menú principal</a>
+    </footer>
+
+    <script>
+// ── CORRIDO NORTEÑO — Boneless La Granja (Web Audio API) ─
+var audioCtx = null;
+var musicNodes = [];
+var musicPlaying = false;
+var musicVol = 0.4;
+var musicScheduler = null;
+
+// Frecuencias base — tonalidad La mayor (A), típica del norteño
+var NOTE = {
+    A2:110.00, E3:164.81, A3:220.00, B3:246.94, Cs4:277.18,
+    D4:293.66,  E4:329.63, Fs4:369.99, G4:392.00, A4:440.00,
+    B4:493.88,  Cs5:554.37,D5:587.33, E5:659.25, Fs5:739.99,
+    A5:880.00,  E2:82.41,  B2:123.47, Cs3:138.59,D3:146.83,
+    G3:196.00,  Fs3:185.00
+};
+
+// Patrón de bajo sexto norteño (A - D - E - A)
+// [frecuencia, duración en beats, volumen]
+var BAJO = [
+    [NOTE.A2,0.5,1],[NOTE.E3,0.5,0.7],[NOTE.A2,0.5,1],[NOTE.E3,0.5,0.7],
+    [NOTE.D3,0.5,1],[NOTE.A3,0.5,0.7],[NOTE.D3,0.5,1],[NOTE.A3,0.5,0.7],
+    [NOTE.E3,0.5,1],[NOTE.B3,0.5,0.7],[NOTE.E3,0.5,1],[NOTE.B3,0.5,0.7],
+    [NOTE.A2,0.5,1],[NOTE.E3,0.5,0.7],[NOTE.A2,0.5,1],[NOTE.E3,0.5,0.7]
+];
+
+// Melodía de acordeón — frase principal estilo corrido norteño en La mayor
+var ACORDEON = [
+    // Frase A — llamada
+    [NOTE.E5, 0.25,0.9],[NOTE.Cs5,0.25,0.8],[NOTE.A4, 0.25,0.9],[NOTE.E4, 0.25,0.7],
+    [NOTE.Fs4,0.25,0.8],[NOTE.A4, 0.25,0.9],[NOTE.Cs5,0.5, 0.9],[0,0.25,0],
+    [NOTE.E5, 0.25,0.9],[NOTE.D5, 0.25,0.8],[NOTE.Cs5,0.25,0.9],[NOTE.B4, 0.25,0.8],
+    [NOTE.A4, 0.75,1.0],[0,0.25,0],
+    // Frase B — respuesta
+    [NOTE.A4, 0.25,0.8],[NOTE.B4, 0.25,0.8],[NOTE.Cs5,0.25,0.9],[NOTE.D5, 0.25,0.8],
+    [NOTE.E5, 0.5, 1.0],[NOTE.Cs5,0.25,0.8],[NOTE.B4, 0.25,0.7],
+    [NOTE.A4, 0.25,0.9],[NOTE.Fs4,0.25,0.8],[NOTE.E4, 0.25,0.9],[NOTE.Cs4,0.25,0.7],
+    [NOTE.A3, 0.75,1.0],[0,0.25,0],
+    // Frase C — subida
+    [NOTE.Cs5,0.25,0.9],[NOTE.E5, 0.25,0.9],[NOTE.A5, 0.5, 1.0],
+    [NOTE.Fs5,0.25,0.8],[NOTE.E5, 0.25,0.9],[NOTE.Cs5,0.25,0.8],[NOTE.B4, 0.25,0.7],
+    [NOTE.A4, 0.25,0.9],[NOTE.E5, 0.25,0.9],[NOTE.A4, 0.5, 1.0],[0,0.25,0],
+    // Frase D — cierre
+    [NOTE.E5, 0.25,0.9],[NOTE.D5, 0.25,0.8],[NOTE.Cs5,0.25,0.9],[NOTE.B4, 0.25,0.8],
+    [NOTE.A4, 0.25,0.9],[NOTE.Cs5,0.25,0.8],[NOTE.E5, 0.25,0.9],[NOTE.A5, 0.25,1.0],
+    [NOTE.E5, 0.5, 0.9],[NOTE.Cs5,0.25,0.8],[NOTE.A4, 0.25,0.8],
+    [NOTE.A3, 1.0, 1.0],[0,0.5,0]
+];
+
+// Ritmo polka — clave 2/4 típica norteña (golpe-dos)
+var BPM = 132; // polka norteña rápida
+var BEAT = 60 / BPM;
+
+function initAudio() {
+    if (audioCtx) return;
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+}
+
+// Oscilador tipo acordeón (sawtooth + filtro)
+function playAcordeon(freq, startTime, dur, vol) {
+    if (!audioCtx || freq === 0) return;
+    var osc   = audioCtx.createOscillator();
+    var gain  = audioCtx.createGain();
+    var filt  = audioCtx.createBiquadFilter();
+    var master= audioCtx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.value = freq;
+    filt.type = 'bandpass';
+    filt.frequency.value = freq * 2.5;
+    filt.Q.value = 2.5;
+    master.gain.value = vol * musicVol * 0.35;
+    osc.connect(filt); filt.connect(gain); gain.connect(master); master.connect(audioCtx.destination);
+    gain.gain.setValueAtTime(0, startTime);
+    gain.gain.linearRampToValueAtTime(0.9, startTime + 0.015);
+    gain.gain.setValueAtTime(0.9, startTime + dur * BEAT * 0.7);
+    gain.gain.exponentialRampToValueAtTime(0.001, startTime + dur * BEAT * 0.95);
+    osc.start(startTime);
+    osc.stop(startTime + dur * BEAT);
+    musicNodes.push(osc);
+}
+
+// Bajo sexto (cuerda — triangle con sub)
+function playBajo(freq, startTime, dur, vol) {
+    if (!audioCtx || freq === 0) return;
+    // Sub bajo
+    var sub = audioCtx.createOscillator();
+    var sg  = audioCtx.createGain();
+    var sm  = audioCtx.createGain();
+    sub.type = 'triangle';
+    sub.frequency.value = freq;
+    sm.gain.value = vol * musicVol * 0.5;
+    sub.connect(sg); sg.connect(sm); sm.connect(audioCtx.destination);
+    sg.gain.setValueAtTime(0, startTime);
+    sg.gain.linearRampToValueAtTime(1, startTime + 0.01);
+    sg.gain.exponentialRampToValueAtTime(0.001, startTime + dur * BEAT * 0.9);
+    sub.start(startTime); sub.stop(startTime + dur * BEAT);
+    // Punteo de cuerda
+    var osc = audioCtx.createOscillator();
+    var og  = audioCtx.createGain();
+    var om  = audioCtx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.value = freq * 2;
+    om.gain.value = vol * musicVol * 0.15;
+    osc.connect(og); og.connect(om); om.connect(audioCtx.destination);
+    og.gain.setValueAtTime(0.6, startTime);
+    og.gain.exponentialRampToValueAtTime(0.001, startTime + 0.08);
+    osc.start(startTime); osc.stop(startTime + 0.1);
+    musicNodes.push(sub); musicNodes.push(osc);
+}
+
+// Golpe de tarola/caja norteña
+function playSnare(startTime, vol) {
+    if (!audioCtx) return;
+    var buf  = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.12, audioCtx.sampleRate);
+    var data = buf.getChannelData(0);
+    for (var i=0;i<data.length;i++) data[i] = (Math.random()*2-1) * Math.pow(1 - i/data.length, 3);
+    var src  = audioCtx.createBufferSource();
+    var gain = audioCtx.createGain();
+    var filt = audioCtx.createBiquadFilter();
+    filt.type='highpass'; filt.frequency.value=1800;
+    src.buffer = buf;
+    gain.gain.value = vol * musicVol * 0.3;
+    src.connect(filt); filt.connect(gain); gain.connect(audioCtx.destination);
+    src.start(startTime); src.stop(startTime + 0.12);
+}
+
+// Bombo norteño
+function playKick(startTime, vol) {
+    if (!audioCtx) return;
+    var osc  = audioCtx.createOscillator();
+    var gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(120, startTime);
+    osc.frequency.exponentialRampToValueAtTime(40, startTime + 0.12);
+    gain.gain.setValueAtTime(vol * musicVol * 0.8, startTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.2);
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.start(startTime); osc.stop(startTime + 0.2);
+}
+
+function scheduleNorteno() {
+    if (!musicPlaying) return;
+    var now = audioCtx.currentTime + 0.05;
+
+    // Duración total de la melodía del acordeón
+    var totalBeats = ACORDEON.reduce(function(s,n){return s+n[1];},0);
+    var totalTime  = totalBeats * BEAT;
+
+    // Cuántas veces cabe el patrón de bajo en la melodía
+    var bajoBeats = BAJO.reduce(function(s,n){return s+n[1];},0);
+    var bajoReps  = Math.ceil(totalBeats / bajoBeats);
+
+    // Acordeón
+    var t = now;
+    ACORDEON.forEach(function(n) {
+        playAcordeon(n[0], t, n[1], n[2]);
+        t += n[1] * BEAT;
+    });
+
+    // Bajo sexto (se repite para llenar toda la melodía)
+    var tb = now;
+    for (var rep=0; rep<bajoReps; rep++) {
+        BAJO.forEach(function(n) {
+            playBajo(n[0], tb, n[1], n[2]);
+            tb += n[1] * BEAT;
+        });
+    }
+
+    // Ritmo polka 2/4: kick en 1, snare en 2
+    var td = now;
+    var totalBars = Math.ceil(totalBeats / 2);
+    for (var bar=0; bar<totalBars; bar++) {
+        playKick(td, 1.0);
+        playSnare(td + BEAT * 1, 0.8);
+        // contratiempo norteño
+        playKick(td + BEAT * 1.5, 0.5);
+        td += BEAT * 2;
+    }
+
+    musicScheduler = setTimeout(scheduleNorteno, (totalTime - 0.4) * 1000);
+}
+
+function toggleMusic() {
+    initAudio();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    musicPlaying = !musicPlaying;
+    var btn = document.getElementById('musicBtn');
+    if (musicPlaying) {
+        btn.textContent = '⏸ Pausa';
+        btn.style.borderColor = '#ff4500';
+        scheduleNorteno();
+    } else {
+        btn.textContent = '▶ Play';
+        btn.style.borderColor = '#444';
+        clearTimeout(musicScheduler);
+        musicNodes.forEach(function(n){ try{n.stop();}catch(e){} });
+        musicNodes = [];
+    }
+}
+
+function setMusicVol(v) { musicVol = v / 100; }
+
+window.toggleMusic = toggleMusic;
+window.setMusicVol = setMusicVol;
+
+// ── JUEGO 1: SALVA A LAS GALLINAS ────────────────────────
+(function() {
+    var canvas, ctx, W, H;
+    var gameRunning = false;
+    var score = 0, lives = 3, level = 1, highScore = 0;
+    var dog, chickens, particles, frameCount;
+    var animId;
+    var lastChickenTime = 0;
+    var spawnInterval = 1800;
+    var PX = 3;
+
+    // Teclado
+    var keys = {};
+    document.addEventListener('keydown', function(e) {
+        keys[e.code] = true;
+        if ((e.code==='Space'||e.code==='KeyW') && gameRunning) {
+            e.preventDefault();
+            if (dog && !dog.jumping) { dog.vy = -12; dog.jumping = true; }
+        }
+    });
+    document.addEventListener('keyup', function(e) { keys[e.code] = false; });
+
+    var DOG_BODY = [
+        [2,4,'#8B5E3C'],[3,4,'#8B5E3C'],[4,4,'#8B5E3C'],[5,4,'#8B5E3C'],[6,4,'#8B5E3C'],[7,4,'#8B5E3C'],
+        [1,5,'#8B5E3C'],[2,5,'#8B5E3C'],[3,5,'#8B5E3C'],[4,5,'#8B5E3C'],[5,5,'#8B5E3C'],[6,5,'#8B5E3C'],[7,5,'#8B5E3C'],[8,5,'#8B5E3C'],
+        [1,6,'#8B5E3C'],[2,6,'#8B5E3C'],[3,6,'#8B5E3C'],[4,6,'#8B5E3C'],[5,6,'#8B5E3C'],[6,6,'#8B5E3C'],[7,6,'#8B5E3C'],[8,6,'#8B5E3C'],
+        [1,7,'#8B5E3C'],[2,7,'#8B5E3C'],[3,7,'#A0714F'],[4,7,'#A0714F'],[5,7,'#A0714F'],[6,7,'#A0714F'],[7,7,'#8B5E3C'],[8,7,'#8B5E3C'],
+        [2,2,'#A0714F'],[3,2,'#A0714F'],[4,2,'#A0714F'],[5,2,'#A0714F'],[6,2,'#A0714F'],[7,2,'#A0714F'],
+        [1,3,'#A0714F'],[2,3,'#A0714F'],[3,3,'#A0714F'],[4,3,'#A0714F'],[5,3,'#A0714F'],[6,3,'#A0714F'],[7,3,'#A0714F'],[8,3,'#A0714F'],
+        [3,3,'#1a1a1a'],[6,3,'#1a1a1a'],
+        [4,4,'#3d1a00'],[5,4,'#3d1a00'],
+        [1,2,'#6B3F1F'],[2,2,'#6B3F1F'],[7,2,'#6B3F1F'],[8,2,'#6B3F1F'],
+        [1,3,'#6B3F1F'],[8,3,'#6B3F1F'],
+        [2,8,'#8B5E3C'],[3,8,'#8B5E3C'],[6,8,'#8B5E3C'],[7,8,'#8B5E3C'],
+        [2,9,'#7a5230'],[3,9,'#7a5230'],[6,9,'#7a5230'],[7,9,'#7a5230'],
+        [4,2,'#f5e6d3'],[5,2,'#f5e6d3'],[4,3,'#f5e6d3'],[5,3,'#f5e6d3']
+    ];
+    var BASKET = [
+        [0,0,'#8B4513'],[1,0,'#8B4513'],[2,0,'#8B4513'],[3,0,'#8B4513'],[4,0,'#8B4513'],[5,0,'#8B4513'],[6,0,'#8B4513'],[7,0,'#8B4513'],[8,0,'#8B4513'],[9,0,'#8B4513'],
+        [0,1,'#A0522D'],[1,1,'#D2691E'],[2,1,'#A0522D'],[3,1,'#D2691E'],[4,1,'#A0522D'],[5,1,'#D2691E'],[6,1,'#A0522D'],[7,1,'#D2691E'],[8,1,'#A0522D'],[9,1,'#A0522D'],
+        [0,2,'#A0522D'],[1,2,'#D2691E'],[2,2,'#A0522D'],[3,2,'#D2691E'],[4,2,'#A0522D'],[5,2,'#D2691E'],[6,2,'#A0522D'],[7,2,'#D2691E'],[8,2,'#A0522D'],[9,2,'#A0522D'],
+        [1,3,'#8B4513'],[2,3,'#8B4513'],[3,3,'#8B4513'],[4,3,'#8B4513'],[5,3,'#8B4513'],[6,3,'#8B4513'],[7,3,'#8B4513'],[8,3,'#8B4513']
+    ];
+    var CHICKEN = [
+        [1,0,'#ffffff'],[2,0,'#ffffff'],[3,0,'#ff4444'],
+        [0,1,'#e0e0e0'],[1,1,'#ffffff'],[2,1,'#ffffff'],[3,1,'#1a1a1a'],
+        [0,2,'#ffcc00'],[1,2,'#ffffff'],[2,2,'#ffffff'],[3,2,'#ffffff'],
+        [1,3,'#ffcc00'],[2,3,'#ffcc00']
+    ];
+
+    function drawSprite(sprite, ox, oy, scale) {
+        sprite.forEach(function(p) {
+            ctx.fillStyle = p[2];
+            ctx.fillRect(ox + p[0]*scale, oy + p[1]*scale, scale, scale);
+        });
+    }
+
+    function initCanvas() {
+        canvas = document.getElementById('gameCanvas');
+        var maxW = Math.min(canvas.parentElement.clientWidth, 480);
+        W = maxW; H = Math.round(maxW * 1.1);
+        canvas.width = W; canvas.height = H;
+        canvas.style.width = W+'px'; canvas.style.height = H+'px';
+        ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+
+        canvas.addEventListener('mousemove', function(e) {
+            if (!gameRunning) return;
+            var rect = canvas.getBoundingClientRect();
+            dog.x = Math.max(0, Math.min(W - dog.w, e.clientX - rect.left - dog.w/2));
+        });
+        canvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            if (!gameRunning) return;
+            var rect = canvas.getBoundingClientRect();
+            dog.x = Math.max(0, Math.min(W - dog.w, e.touches[0].clientX - rect.left - dog.w/2));
+        }, { passive:false });
+        canvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            if (gameRunning && dog && !dog.jumping) { dog.vy = -12; dog.jumping = true; }
+        }, { passive:false });
+    }
+
+    function startGame() {
+        if (!canvas) initCanvas();
+        document.getElementById('gameStartScreen').style.display = 'none';
+        document.getElementById('gameOverScreen').classList.add('hidden');
+        document.getElementById('gameOverScreen').classList.remove('flex');
+        document.getElementById('gameHUD').classList.remove('hidden');
+        document.getElementById('gameHUD').classList.add('flex');
+        score = 0; lives = 3; level = 1; frameCount = 0;
+        spawnInterval = 1800;
+        lastChickenTime = performance.now();
+        var groundY = H - 80;
+        dog = { x: W/2-45, y: groundY, w: 10*PX, h: 10*PX, basketW: 10*PX, vy: 0, jumping: false, groundY: groundY, speed: 4 };
+        chickens = []; particles = [];
+        gameRunning = true;
+        updateHUD();
+        if (animId) cancelAnimationFrame(animId);
+        loop(performance.now());
+    }
+
+    function spawnChicken(now) {
+        chickens.push({
+            x: Math.random()*(W-4*PX*4), y: -4*PX*4,
+            speed: 1.2 + level*0.3 + Math.random()*0.8,
+            w: 4*PX, h: 4*PX, wobble: Math.random()*Math.PI*2, caught: false
+        });
+        lastChickenTime = now;
+    }
+
+    function spawnParticles(x, y, color) {
+        for (var i=0;i<12;i++) {
+            particles.push({ x:x, y:y, vx:(Math.random()-0.5)*4, vy:(Math.random()-2)*3, life:1, color:color, size:3+Math.random()*4 });
+        }
+    }
+
+    function updateHUD() {
+        document.getElementById('gameScore').textContent = score;
+        document.getElementById('gameLevel').textContent = level;
+        var h=''; for(var i=0;i<lives;i++) h+='❤️'; for(var j=lives;j<3;j++) h+='🖤';
+        document.getElementById('gameLives').innerHTML = h;
+        document.getElementById('gameHighScore').textContent = highScore;
+    }
+
+    function loop(now) {
+        if (!gameRunning) return;
+        animId = requestAnimationFrame(loop);
+        frameCount++;
+        level = 1 + Math.floor(score/50);
+        spawnInterval = Math.max(700, 1800-(level-1)*120);
+        if (now - lastChickenTime > spawnInterval) spawnChicken(now);
+
+        // Movimiento teclado
+        if (keys['KeyA'] || keys['ArrowLeft'])  dog.x = Math.max(0, dog.x - dog.speed);
+        if (keys['KeyD'] || keys['ArrowRight']) dog.x = Math.min(W - dog.w, dog.x + dog.speed);
+
+        // Física de salto
+        dog.vy += 0.6;
+        dog.y += dog.vy;
+        if (dog.y >= dog.groundY) { dog.y = dog.groundY; dog.vy = 0; dog.jumping = false; }
+
+        ctx.fillStyle = '#1a1a2e'; ctx.fillRect(0,0,W,H);
+
+        // Estrellas
+        for (var s=0;s<30;s++) {
+            var sx=(s*137+50)%W, sy=(s*97+20)%(H*0.6);
+            ctx.globalAlpha = (Math.sin(frameCount*0.05+s)*0.5+0.5)*0.6;
+            ctx.fillStyle='#fff'; ctx.fillRect(sx,sy,2,2);
+        }
+        ctx.globalAlpha=1;
+
+        // Suelo
+        ctx.fillStyle='#2d4a1e'; ctx.fillRect(0,H-18,W,18);
+        ctx.fillStyle='#3d6b28'; ctx.fillRect(0,H-20,W,4);
+        for(var g=0;g<W;g+=8) { ctx.fillStyle=g%16===0?'#3d6b28':'#4a8030'; ctx.fillRect(g,H-22,4,6); }
+
+        // Gallinas
+        for (var ci=chickens.length-1;ci>=0;ci--) {
+            var c=chickens[ci];
+            if (c.caught) { chickens.splice(ci,1); continue; }
+            c.y += c.speed; c.wobble += 0.08;
+            var wx = Math.sin(c.wobble)*3;
+            var bx=dog.x, by=dog.y+dog.h-4*PX;
+            if (c.y+c.h>=by && c.y<=by+4*PX && c.x+c.w>=bx && c.x<=bx+dog.basketW) {
+                c.caught=true; score+=10;
+                spawnParticles(c.x+c.w/2,c.y,'#facc15');
+                if(score>highScore){ highScore=score; localStorage.setItem('blg_game_highscore',highScore); }
+                updateHUD(); continue;
+            }
+            if (c.y>H-20) {
+                chickens.splice(ci,1); lives--;
+                spawnParticles(c.x+c.w/2,H-20,'#ef4444');
+                updateHUD();
+                if(lives<=0){ gameOver(); return; }
+                continue;
+            }
+            drawSprite(CHICKEN, c.x+wx, c.y, PX);
+        }
+
+        // Bulldog + canasta
+        drawSprite(DOG_BODY, dog.x, dog.y, PX);
+        drawSprite(BASKET, dog.x, dog.y+dog.h-4*PX, PX);
+
+        // Partículas
+        for(var pi=particles.length-1;pi>=0;pi--) {
+            var p=particles[pi]; p.x+=p.vx; p.y+=p.vy; p.vy+=0.15; p.life-=0.04;
+            if(p.life<=0){particles.splice(pi,1);continue;}
+            ctx.globalAlpha=p.life; ctx.fillStyle=p.color; ctx.fillRect(p.x,p.y,p.size,p.size);
+        }
+        ctx.globalAlpha=1;
+
+        // Controles hint
+        if (frameCount < 180) {
+            ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.font='11px monospace'; ctx.textAlign='center';
+            ctx.fillText('← A/D → mover  |  W/Espacio saltar', W/2, 18);
+            ctx.textAlign='left';
+        }
+    }
+
+    function gameOver() {
+        gameRunning=false;
+        document.getElementById('gameHUD').classList.add('hidden');
+        document.getElementById('gameHUD').classList.remove('flex');
+        var go=document.getElementById('gameOverScreen');
+        go.classList.remove('hidden'); go.classList.add('flex');
+        document.getElementById('gameOverScore').textContent=score;
+        var rec=document.getElementById('gameOverRecord');
+        if(score>=highScore&&score>0){rec.textContent='🏆 ¡Nuevo récord!';rec.style.color='#facc15';}
+        else{rec.textContent='Récord: '+highScore;rec.style.color='#aaa';}
+    }
+
+    window.startGame = startGame;
+    window.addEventListener('load', function() {
+        highScore = parseInt(localStorage.getItem('blg_game_highscore')||'0');
+        document.getElementById('gameHighScore').textContent=highScore;
+        initCanvas();
+    });
+})();
+
+
+
+    </script>
+</body>
+</html>

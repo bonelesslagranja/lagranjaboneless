@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐔 Boneless La Granja - Los Más Grandes de Reynosa</title>
+    <meta name="description" content="Boneless La Granja — Los boneless más grandes de Reynosa. 160g por pieza. Pide ahora por WhatsApp o en Rappi. Entregas en todo Reynosa.">
+    <meta property="og:title" content="🔥 Boneless La Granja - Los Más Grandes de Reynosa">
+    <meta property="og:description" content="160g por pieza. 3x más grande que el tradicional. Pide ahora y recibe en casa.">
+    <meta property="og:image" content="https://i.ibb.co/zhyxLf9n/individual-bestial.png">
+    <meta property="og:url" content="https://bonelesslagranja.netlify.app">
+    <link rel="icon" href="https://i.ibb.co/1JvtqzTZ/BLG2026.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+
+        * { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: #111111; color: #fff; }
+
+        /* NAVBAR */
+        .navbar { background: rgba(15,15,15,0.97); backdrop-filter: blur(12px); border-bottom: 2px solid #ff4500; }
+        .nav-link { color: #ccc; font-weight: 600; font-size: 0.82rem; padding: 6px 12px; border-radius: 8px; transition: all 0.2s; text-decoration: none; }
+        .nav-link:hover { color: #ff6b35; background: rgba(255,107,53,0.1); }
+        .nav-link.active { color: #ff6b35; }
+
+        /* PRODUCT CARDS */
+        .product-card { transition: all 0.3s ease; background: #1e1e1e; border: 1px solid #2a2a2a; }
+        .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(255,69,0,0.25); border-color: #ff4500; }
+
+        /* CART */
+        .cart-badge { animation: pulse-badge 2s infinite; }
+        @keyframes pulse-badge { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+        .floating-cart { position: fixed; bottom: 24px; right: 20px; z-index: 1000; }
+        @media(max-width:768px){ .floating-cart{bottom:14px;right:12px;} }
+
+        /* SCROLL ANIMATIONS */
+        .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* STATUS */
+        .status-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 5px; flex-shrink: 0; }
+        .status-open { background: #22c55e; animation: blink 1.5s infinite; }
+        .status-closed { background: #ef4444; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+        /* COUNTER */
+        @keyframes countUp { from{opacity:0;transform:scale(0.6)} to{opacity:1;transform:scale(1)} }
+        .counter-num { animation: countUp 0.9s ease forwards; }
+
+        /* REVIEWS CAROUSEL */
+        .reviews-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 8px; }
+        .reviews-track::-webkit-scrollbar { height: 4px; }
+        .reviews-track::-webkit-scrollbar-thumb { background: #ff4500; border-radius: 4px; }
+        .review-card { min-width: 280px; max-width: 280px; scroll-snap-align: start; background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 16px; padding: 20px; transition: all 0.3s; flex-shrink: 0; }
+        .review-card:hover { border-color: #ff4500; transform: translateY(-3px); }
+        @media(min-width:768px){ .review-card{min-width:300px;max-width:300px;} }
+
+        /* WHY US */
+        .why-card { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 16px; padding: 24px; text-align: center; transition: all 0.3s; }
+        .why-card:hover { border-color: #ff4500; transform: translateY(-4px); }
+
+        /* SALSA BTN */
+        .salsa-btn { background: #1e1e1e; color: #fff; border: 2px solid #333; }
+        .salsa-btn.selected { background: #ff4500; border-color: #ff4500; color: #fff; }
+
+        /* WA TOOLTIP */
+        .wa-tooltip { position: absolute; bottom: 0; left: calc(100% + 12px); background: #1e1e1e; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 8px 14px; border-radius: 12px; white-space: nowrap; border: 1px solid #333; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .wa-tooltip.show { opacity: 1; }
+        .wa-tooltip::before { content:''; position:absolute; right:100%; top:50%; transform:translateY(-50%); border:6px solid transparent; border-right-color:#1e1e1e; }
+
+        /* SECTIONS BG */
+        .section-dark { background: #111; }
+        .section-card { background: #1e1e1e; border-radius: 20px; border: 1px solid #2a2a2a; }
+
+        /* INPUT DARK */
+        .input-dark { background: #1e1e1e; border: 2px solid #333; color: #fff; border-radius: 10px; padding: 12px; width: 100%; }
+        .input-dark::placeholder { color: #666; }
+        .input-dark:focus { outline: none; border-color: #ff4500; }
+        /* COMMENTS */
+        .star-btn { color: #555; user-select: none; }
+        .star-btn.active { color: #facc15; }
+        .comment-card { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 16px; padding: 18px; transition: border-color 0.3s; }
+        .comment-card:hover { border-color: #ff4500; }
+        .comment-img { width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px; cursor: pointer; }
+        .img-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9999; align-items:center; justify-content:center; padding:16px; }
+        .img-modal.open { display:flex; }
+        .img-modal img { max-width:100%; max-height:90vh; border-radius:12px; object-fit:contain; }
+        /* LOYALTY */
+        .reward-card { background:#1e1e1e; border:1px solid #2a2a2a; border-radius:14px; padding:16px; display:flex; align-items:center; justify-content:space-between; gap:12px; transition:border-color 0.3s; }
+        .reward-card:hover { border-color:#ff4500; }
+        .reward-card.disabled { opacity:0.4; pointer-events:none; }
+        .history-row { background:#1e1e1e; border-radius:10px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; }
+        .pts-plus { color:#22c55e; font-weight:900; }
+        .pts-minus { color:#ef4444; font-weight:900; }
+    </style>
+</head>
+<body>
+    
+    <!-- NAVBAR -->
+    <nav class="navbar sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <img src="https://i.ibb.co/1JvtqzTZ/BLG2026.png" alt="Boneless La Granja" class="h-12 w-auto object-contain">
+                <!-- Nav links desktop -->
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="#inicio" class="nav-link">Inicio</a>
+                    <a href="#boneless" class="nav-link">Boneless</a>
+                    <a href="#complementos" class="nav-link">Complementos</a>
+                    <a href="#fidelidad" class="nav-link">🏆 Club Granja</a>
+                    <a href="juegos.html" class="nav-link">🎮 Juegos</a>
+                    <a href="comentarios.html" class="nav-link">Comentarios</a>
+                    <a href="resenas.html" class="nav-link">Reseñas</a>
+                    <a href="#contacto" class="nav-link">Contacto</a>
+                </div>
+                <!-- Status + cart -->
+                <div class="flex items-center gap-3">
+                    <div id="statusBadge" class="hidden md:inline-flex items-center px-3 py-1 rounded-full text-xs font-black"></div>
+                    <button onclick="openCart()" class="bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full px-4 py-2 font-black text-sm flex items-center gap-2 hover:scale-105 transition relative">
+                        🛒 <span id="cartCount" class="bg-yellow-400 text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-black">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg-black text-white text-center py-3 px-4">
+        <p class="text-sm md:text-base font-bold">🛵 ¡También encuéntranos en <span class="text-orange-400">Rappi</span>! Busca <span class="text-orange-400">"Boneless La Granja"</span></p>
+    </div>
+
+    <!-- HERO -->
+    <section id="inicio" class="relative text-white overflow-hidden" style="background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://i.ibb.co/Q3zJdQ4h/ventanal.png') center/cover no-repeat; min-height: 320px; display:flex; align-items:center;">
+        <div class="container mx-auto px-4 text-center py-16">
+            <!-- Logo grande solo en hero -->
+            <img src="https://i.ibb.co/1JvtqzTZ/BLG2026.png" alt="Boneless La Granja" class="w-40 h-40 object-contain mx-auto mb-4 drop-shadow-2xl">
+            <h1 class="text-3xl md:text-6xl font-black mb-3 drop-shadow-lg">🔥 BONELESS 3X MÁS GRANDES</h1>
+            <p class="text-lg md:text-2xl mb-2 text-orange-300 font-bold">160g por pieza vs 50g tradicional</p>
+            <p class="text-base md:text-xl mb-6 text-gray-200">= Ahorras $100+ en cada orden 💰</p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="#boneless" class="bg-gradient-to-r from-orange-500 to-red-500 text-white font-black px-8 py-3 rounded-full text-lg hover:scale-105 transition shadow-lg">Ver Menú 🐔</a>
+                <a href="https://wa.me/522205611383?text=Hola%2C%20quiero%20hacer%20un%20pedido%20%F0%9F%94%A5" target="_blank" class="bg-green-500 text-white font-black px-8 py-3 rounded-full text-lg hover:scale-105 transition shadow-lg">Pedir Ahora 📱</a>
+            </div>
+            <div class="flex items-center justify-center gap-2 mt-6">
+                <div id="statusBadgeMobile" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-black"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COUNTERS -->
+    <section class="bg-gradient-to-r from-orange-600 to-red-700 text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="fade-in">
+                    <p class="text-3xl md:text-4xl font-black counter-num">+500</p>
+                    <p class="text-xs md:text-sm font-semibold opacity-90">Clientes felices</p>
+                </div>
+                <div class="fade-in">
+                    <p class="text-3xl md:text-4xl font-black counter-num">160g</p>
+                    <p class="text-xs md:text-sm font-semibold opacity-90">Por pieza</p>
+                </div>
+                <div class="fade-in">
+                    <p class="text-3xl md:text-4xl font-black counter-num">3x</p>
+                    <p class="text-xs md:text-sm font-semibold opacity-90">Más grande</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RAPPI BANNER -->
+    <div class="bg-black text-white text-center py-3 px-4 border-b border-gray-800">
+        <p class="text-sm md:text-base font-bold">🛵 ¡También encuéntranos en <span class="text-orange-400">Rappi</span>! Busca <span class="text-orange-400">"Boneless La Granja"</span></p>
+    </div>
+
+    <!-- POR QUÉ ELEGIRNOS -->
+    <section class="py-10 px-4 bg-black">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 fade-in">
+                <div class="why-card">
+                    <div class="text-4xl mb-3">🏆</div>
+                    <h3 class="font-black text-orange-400 text-lg mb-2">Tamaño Real Garantizado</h3>
+                    <p class="text-gray-400 text-sm">Cada pieza pesa 160g. No prometemos lo que no cumplimos.</p>
+                </div>
+                <div class="why-card">
+                    <div class="text-4xl mb-3">💰</div>
+                    <h3 class="font-black text-orange-400 text-lg mb-2">Mejor Precio-Calidad</h3>
+                    <p class="text-gray-400 text-sm">Más pollo por menos dinero. Ahorras $100+ en cada orden.</p>
+                </div>
+                <div class="why-card">
+                    <div class="text-4xl mb-3">🚀</div>
+                    <h3 class="font-black text-orange-400 text-lg mb-2">Entrega en Reynosa</h3>
+                    <p class="text-gray-400 text-sm">Entregas a toda la ciudad. También en Rappi para mayor comodidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container mx-auto px-4 py-8" id="boneless">
+        
+        <section class="mb-12 fade-in">
+            <div class="bg-red-500 text-white inline-block px-6 py-2 rounded-full font-black text-lg mb-4 shadow-lg">⭐ MÁS VENDIDO</div>
+            <div class="rounded-3xl shadow-2xl overflow-hidden product-card border-2 border-orange-500">
+                <img src="https://i.ibb.co/zhyxLf9n/individual-bestial.png" alt="Individual Bestial" class="w-full h-56 object-cover">
+                <div class="bg-gradient-to-r from-orange-600 to-red-600 p-6 text-white">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-3xl font-black mb-2">🔥 Individual Bestial</h3>
+                            <p class="text-lg opacity-90">Para uno... pero con hambre real</p>
+                        </div>
+                        <div class="text-right"><p class="text-4xl font-black">$169</p></div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-4">
+                        <p class="text-lg mb-2">✅ 3 Boneless GIGANTES (150-160g c/u)</p>
+                        <p class="text-sm text-gray-400 mb-2">≈ 9 boneless tradicionales</p>
+                        <p class="text-gray-200 text-lg">✅ Papas Clásicas</p>
+                        <p class="text-gray-200 text-lg">✅ Vegetales</p>
+                        <p class="text-gray-200 text-lg">✅ Refresco</p>
+                    </div>
+                    <button onclick="selectProduct('Individual Bestial', 169, 3, 1)" class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-black py-4 rounded-xl hover:from-orange-600 hover:to-red-600 transition text-lg shadow-lg">🛒 AGREGAR AL CARRITO</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12 fade-in">
+            <h2 class="text-3xl font-black mb-6 text-orange-400">🐔 Boneless Gigantes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="rounded-2xl overflow-hidden product-card">
+                    <img src="https://i.ibb.co/PGSrc4mD/jumbo.png" alt="Boneless JUMBO" class="w-full h-48 object-cover">
+                    <div class="bg-gradient-to-br from-yellow-600 to-orange-600 p-4">
+                        <div class="flex justify-between items-center text-white">
+                            <h3 class="text-2xl font-black">JUMBO</h3>
+                            <span class="text-3xl font-black">$175</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="font-bold text-lg mb-2 text-white">5 piezas gigantes</p>
+                        <p class="text-sm text-gray-400 mb-1">≈ 15 boneless tradicionales</p>
+                        <p class="text-sm text-gray-400 mb-4">750-800g de pollo puro</p>
+                        <button onclick="selectProduct('Boneless JUMBO', 175, 5, 1)" class="w-full bg-orange-500 text-white font-bold py-3 rounded-lg hover:bg-orange-600 transition">Seleccionar Salsa →</button>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl overflow-hidden product-card border-2 border-orange-500">
+                    <img src="https://i.ibb.co/8gYG5C0R/mega.jpg" alt="Boneless MEGA" class="w-full h-48 object-cover">
+                    <div class="bg-gradient-to-br from-orange-600 to-red-600 p-4">
+                        <div class="flex justify-between items-center text-white">
+                            <h3 class="text-2xl font-black">MEGA</h3>
+                            <span class="text-3xl font-black">$305</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="font-bold text-lg mb-2 text-white">10 piezas gigantes</p>
+                        <p class="text-sm text-gray-400 mb-1">≈ 30 boneless tradicionales</p>
+                        <p class="text-sm text-gray-400 mb-4">1.5 kg de pollo puro</p>
+                        <button onclick="selectProduct('Boneless MEGA', 305, 10, 2)" class="w-full bg-orange-500 text-white font-bold py-3 rounded-lg hover:bg-orange-600 transition">Seleccionar Salsas →</button>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl overflow-hidden product-card">
+                    <img src="https://i.ibb.co/Q2qcXXH/ultra.jpg" alt="Boneless ULTRA" class="w-full h-48 object-cover">
+                    <div class="bg-gradient-to-br from-red-700 to-orange-700 p-4">
+                        <div class="flex justify-between items-center text-white">
+                            <h3 class="text-2xl font-black">ULTRA</h3>
+                            <span class="text-3xl font-black">$450</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="font-bold text-lg mb-2 text-white">15 piezas gigantes</p>
+                        <p class="text-sm text-gray-400 mb-1">≈ 45 boneless tradicionales</p>
+                        <p class="text-sm text-gray-400 mb-4">Para compartir... o no 😈</p>
+                        <button onclick="selectProduct('Boneless ULTRA', 450, 15, 3)" class="w-full bg-orange-500 text-white font-bold py-3 rounded-lg hover:bg-orange-600 transition">Seleccionar Salsas →</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="mb-12 fade-in">
+            <h2 class="text-3xl font-black mb-6 text-orange-400">💪 Para Hambre Extrema</h2>
+            <div class="rounded-2xl overflow-hidden product-card">
+                <img src="https://i.ibb.co/Grq7rKC/doble-bestial.jpg" alt="Doble Bestial" class="w-full h-56 object-cover">
+                <div class="bg-gradient-to-r from-red-700 to-orange-600 p-6 text-white">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-2xl font-black mb-1">🔥 Doble Bestial</h3>
+                            <p class="text-sm opacity-90">6 boneless gigantes + Papas + 2 salsas</p>
+                        </div>
+                        <span class="text-4xl font-black">$259</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <button onclick="selectProduct('Doble Bestial', 259, 6, 2)" class="w-full bg-orange-500 text-white font-bold py-4 rounded-xl hover:bg-orange-600 transition text-lg">🛒 AGREGAR AL CARRITO</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12 fade-in" id="complementos">
+            <h2 class="text-3xl font-black mb-6 text-orange-400">🍟 Complementos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="rounded-xl overflow-hidden product-card">
+                    <img src="https://i.ibb.co/KpwR7h6z/papa-clasicas.jpg" alt="Papas Clásicas" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                    <h3 class="font-bold text-lg mb-2 text-white">Papas Clásicas</h3>
+                    <p class="text-2xl font-black text-orange-400 mb-3">$89</p>
+                    <button onclick="addToCart('Papas Clásicas', 89, 'complemento')" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition">Agregar</button>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden product-card">
+                    <img src="https://i.ibb.co/C5BwJFDM/papas-ahogadas-en-queso.png" alt="Papas Ahogadas en Queso" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                    <h3 class="font-bold text-lg mb-2 text-white">Papas Ahogadas en Queso</h3>
+                    <p class="text-2xl font-black text-orange-400 mb-3">$99</p>
+                    <button onclick="addToCart('Papas Ahogadas en Queso', 99, 'complemento')" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition">Agregar</button>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden product-card">
+                    <img src="https://i.ibb.co/KcDBkgc3/cono-de-papas-naturales.avif" alt="Cono Sencillo" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                    <h3 class="font-bold text-lg mb-2 text-white">Cono Sencillo</h3>
+                    <p class="text-2xl font-black text-orange-400 mb-3">$69</p>
+                    <button onclick="addToCart('Cono Sencillo', 69, 'complemento')" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition">Agregar</button>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden product-card">
+                    <img src="https://i.ibb.co/PvN0B1rJ/cono-de-papas-con-boneless.png" alt="Cono Cargado" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                    <h3 class="font-bold text-lg mb-2 text-white">Cono Cargado</h3>
+                    <p class="text-2xl font-black text-orange-400 mb-3">$99</p>
+                    <button onclick="addToCart('Cono Cargado', 99, 'complemento')" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition">Agregar</button>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden product-card">
+                    <img src="https://i.ibb.co/dJ560vDB/papas-exploivas.png" alt="Papas Explosivas" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                    <h3 class="font-bold text-lg mb-2 text-white">Papas Explosivas</h3>
+                    <p class="text-2xl font-black text-orange-400 mb-3">$125</p>
+                    <button onclick="addToCart('Papas Explosivas', 125, 'complemento')" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition">Agregar</button>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden product-card">
+                    <img src="https://i.ibb.co/zWnJBbPj/papas-locas.png" alt="Papas Locas" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                    <h3 class="font-bold text-lg mb-2 text-white">Papas Locas</h3>
+                    <p class="text-2xl font-black text-orange-400 mb-3">$195</p>
+                    <button onclick="addToCart('Papas Locas', 195, 'complemento')" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition">Agregar</button>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden product-card">
+                    <img src="https://i.ibb.co/0y57cbG4/granjelote.png" alt="GranjElote" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                    <h3 class="font-bold text-lg mb-2 text-white">🌽 GranjElote</h3>
+                    <p class="text-2xl font-black text-orange-400 mb-3">$70</p>
+                    <button onclick="selectProduct('Elote La Granja', 70, 1, 1)" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition">Seleccionar Salsa →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12 fade-in">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Bebidas -->
+                <div>
+                    <h2 class="text-3xl font-black mb-4 text-orange-400">🥤 Bebidas</h2>
+                    <div class="rounded-2xl overflow-hidden section-card">
+                        <div class="divide-y divide-gray-800">
+                            <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
+                                <div class="flex items-center gap-3"><img src="https://i.ibb.co/1GjPXscv/refrescos.jpg" class="w-10 h-10 object-cover rounded-lg"><span class="font-semibold text-gray-200">Refresco 355ml</span></div>
+                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$25</span><button onclick="openRefrescoModal()" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
+                            </div>
+                            <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
+                                <div class="flex items-center gap-3"><img src="https://i.ibb.co/s9G15242/agua.jpg" class="w-10 h-10 object-cover rounded-lg"><span class="font-semibold text-gray-200">Agua Embotellada 500ml</span></div>
+                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$20</span><button onclick="addToCart('Agua Embotellada 500ml', 20, 'bebida')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Salsas y Extras -->
+                <div>
+                    <h2 class="text-3xl font-black mb-4 text-orange-400">🌶️ Salsas y Extras</h2>
+                    <div class="rounded-2xl overflow-hidden section-card">
+                        <div class="divide-y divide-gray-800">
+                            <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
+                                <div class="flex items-center gap-3"><span class="text-2xl">🥗</span><span class="font-semibold text-gray-200">Ranch</span></div>
+                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$15</span><button onclick="addToCart('Ranch', 15, 'extra')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
+                            </div>
+                            <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
+                                <div class="flex items-center gap-3"><span class="text-2xl">🔥</span><span class="font-semibold text-gray-200">Buffalo</span></div>
+                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$15</span><button onclick="addToCart('Buffalo', 15, 'extra')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
+                            </div>
+                            <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
+                                <div class="flex items-center gap-3"><span class="text-2xl">🥭</span><span class="font-semibold text-gray-200">Mango Habanero</span></div>
+                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$15</span><button onclick="addToCart('Mango Habanero', 15, 'extra')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
+                            </div>
+                            <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
+                                <div class="flex items-center gap-3"><span class="text-2xl">🍖</span><span class="font-semibold text-gray-200">BBQ</span></div>
+                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$15</span><button onclick="addToCart('BBQ', 15, 'extra')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
+                            </div>
+                            <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
+                                <div class="flex items-center gap-3"><span class="text-2xl">🍋</span><span class="font-semibold text-gray-200">Lemon Pepper</span></div>
+                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$15</span><button onclick="addToCart('Lemon Pepper', 15, 'extra')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
+                            </div>
+                            <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
+                                <div class="flex items-center gap-3"><span class="text-2xl">🧈</span><span class="font-semibold text-gray-200">Mantequilla Parmesano</span></div>
+                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$15</span><button onclick="addToCart('Mantequilla Parmesano', 15, 'extra')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
+                            </div>
+                            <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
+                                <div class="flex items-center gap-3"><span class="text-2xl">🥬</span><span class="font-semibold text-gray-200">Verdura</span></div>
+                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$15</span><button onclick="addToCart('Verdura', 15, 'extra')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+    <!-- PROGRAMA DE FIDELIDAD -->
+    <section class="py-12 px-4 fade-in" id="fidelidad" style="background:#0d0d0d;border-top:2px solid #ff4500;">
+        <div class="container mx-auto max-w-2xl">
+            <div class="text-center mb-8">
+                <div class="text-5xl mb-3">🏆</div>
+                <h2 class="text-3xl font-black text-orange-400 mb-2">Club Granja</h2>
+                <p class="text-gray-400">Acumula puntos en cada pedido y canjéalos por premios</p>
+            </div>
+
+            <!-- Cómo funciona -->
+            <div class="grid grid-cols-3 gap-3 mb-8">
+                <div class="text-center" style="background:#1e1e1e;border:1px solid #2a2a2a;border-radius:14px;padding:16px;">
+                    <div class="text-2xl mb-2">🛒</div>
+                    <p class="text-orange-400 font-black text-sm">+25 pts</p>
+                    <p class="text-gray-400 text-xs mt-1">Por cada pedido</p>
+                </div>
+                <div class="text-center" style="background:#1e1e1e;border:1px solid #2a2a2a;border-radius:14px;padding:16px;">
+                    <div class="text-2xl mb-2">💰</div>
+                    <p class="text-orange-400 font-black text-sm">+1 pto</p>
+                    <p class="text-gray-400 text-xs mt-1">Por cada $1 gastado</p>
+                </div>
+                <div class="text-center" style="background:#1e1e1e;border:1px solid #2a2a2a;border-radius:14px;padding:16px;">
+                    <div class="text-2xl mb-2">🎁</div>
+                    <p class="text-orange-400 font-black text-sm">Canjea</p>
+                    <p class="text-gray-400 text-xs mt-1">Desde 100 puntos</p>
+                </div>
+            </div>
+
+            <!-- Panel principal: Login / Dashboard -->
+            <div id="loyaltyLogin" style="background:#1e1e1e;border:1px solid #2a2a2a;border-radius:20px;padding:28px;">
+                <h3 class="text-xl font-black text-white mb-5 text-center">Consulta tus puntos</h3>
+                <div class="space-y-3 mb-5">
+                    <input type="text" id="loyaltyName" placeholder="Tu nombre (igual que en tu pedido)" class="input-dark">
+                    <input type="tel" id="loyaltyPhone" placeholder="Tu teléfono (10 dígitos)" class="input-dark" maxlength="10">
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="loyaltyLogin()" class="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white font-black py-3 rounded-xl hover:from-orange-600 hover:to-red-600 transition">
+                        Consultar mis puntos 🏆
+                    </button>
+                    <button onclick="loyaltyRegister()" style="background:#2a2a2a;border:1px solid #444;color:#ccc;" class="flex-1 font-bold py-3 rounded-xl hover:opacity-80 transition text-sm">
+                        Registrarme ✨
+                    </button>
+                </div>
+                <p id="loyaltyMsg" class="text-center text-sm mt-3 hidden"></p>
+            </div>
+
+            <!-- Dashboard del cliente (oculto hasta login) -->
+            <div id="loyaltyDashboard" class="hidden">
+                <!-- Tarjeta de puntos -->
+                <div class="relative overflow-hidden rounded-2xl p-6 mb-5 text-white" style="background:linear-gradient(135deg,#b45309,#dc2626);">
+                    <div class="absolute top-0 right-0 opacity-10 text-9xl font-black leading-none">🏆</div>
+                    <p class="text-sm font-semibold opacity-80 mb-1">Club Granja — Boneless La Granja</p>
+                    <p class="text-2xl font-black mb-1" id="dashName">—</p>
+                    <p class="text-sm opacity-70 mb-4" id="dashPhone">—</p>
+                    <div class="flex items-end justify-between">
+                        <div>
+                            <p class="text-sm opacity-80">Puntos disponibles</p>
+                            <p class="text-5xl font-black" id="dashPoints">0</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs opacity-70">Total pedidos</p>
+                            <p class="text-2xl font-black" id="dashOrders">0</p>
+                            <p class="text-xs opacity-70">Total gastado</p>
+                            <p class="text-lg font-bold" id="dashSpent">$0</p>
+                        </div>
+                    </div>
+                    <!-- Barra de progreso al siguiente nivel -->
+                    <div class="mt-4">
+                        <div class="flex justify-between text-xs opacity-70 mb-1">
+                            <span id="dashLevelLabel">Nivel actual</span>
+                            <span id="dashNextLabel">Siguiente nivel</span>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.2);border-radius:99px;height:8px;">
+                            <div id="dashProgress" style="background:#facc15;border-radius:99px;height:8px;width:0%;transition:width 0.8s ease;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premios canjeables -->
+                <h3 class="text-lg font-black text-orange-400 mb-3">🎁 Canjear puntos</h3>
+                <div class="grid grid-cols-1 gap-3 mb-5" id="rewardsList"></div>
+
+                <!-- Historial -->
+                <h3 class="text-lg font-black text-orange-400 mb-3">📋 Historial de puntos</h3>
+                <div id="loyaltyHistory" class="space-y-2 mb-5"></div>
+
+                <!-- Solicitar puntos por compra física -->
+                <div style="background:#1a1a1a;border:2px dashed #444;border-radius:16px;padding:20px;" class="mb-5">
+                    <h3 class="text-base font-black text-white mb-1">🧾 ¿Compraste en el restaurante?</h3>
+                    <p style="color:#888;" class="text-xs mb-4">Solicita tus puntos por compras físicas. Te avisamos cuando sean aprobados.</p>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="text-xs font-bold text-gray-400 block mb-1">¿Qué pediste? *</label>
+                            <input type="text" id="physicalWhat" placeholder="Ej: Individual Bestial + Papas Clásicas" class="input-dark" style="font-size:0.85rem;">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-400 block mb-1">¿Cuánto pagaste? *</label>
+                            <input type="number" id="physicalAmount" placeholder="Ej: 258" class="input-dark" style="font-size:0.85rem;" min="1">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-400 block mb-1">¿Cuándo fue? *</label>
+                            <input type="date" id="physicalDate" class="input-dark" style="font-size:0.85rem;">
+                        </div>
+                    </div>
+                    <button onclick="requestPhysicalPoints()" class="w-full mt-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-black py-3 rounded-xl hover:opacity-90 transition text-sm">
+                        📩 Solicitar mis puntos
+                    </button>
+                    <p id="physicalMsg" class="text-center text-xs mt-2 hidden"></p>
+                </div>
+
+                <button onclick="loyaltyLogout()" style="background:#2a2a2a;color:#aaa;" class="w-full font-bold py-3 rounded-xl hover:opacity-80 transition text-sm">
+                    Cerrar sesión
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div id="refrescoModal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50 p-4">
+        <div style="background:#1e1e1e;border:1px solid #333;" class="rounded-3xl max-w-sm w-full">
+            <div class="bg-gradient-to-r from-orange-600 to-red-600 p-6 text-white rounded-t-3xl">
+                <h3 class="text-2xl font-black mb-1">🥤 Elige tu refresco</h3>
+                <p class="text-sm opacity-90">Refresco 355ml — $25</p>
+            </div>
+            <div class="p-6 space-y-3">
+                <button onclick="addRefrescoToCart('Coca-Cola 355ml')" style="background:#2a2a2a;border:2px solid #444;color:#fff;" class="w-full flex items-center gap-4 hover:border-red-500 rounded-xl p-4 transition font-bold text-lg">
+                    <span class="text-3xl">🥤</span> Coca-Cola
+                </button>
+                <button onclick="addRefrescoToCart('Pepsi 355ml')" style="background:#2a2a2a;border:2px solid #444;color:#fff;" class="w-full flex items-center gap-4 hover:border-blue-500 rounded-xl p-4 transition font-bold text-lg">
+                    <span class="text-3xl">🥤</span> Pepsi
+                </button>
+                <button onclick="closeRefrescoModal()" style="background:#2a2a2a;color:#aaa;" class="w-full font-bold py-3 rounded-xl hover:opacity-80 transition mt-2">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Salsas -->
+    <div id="salsaModal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50 p-4">
+        <div style="background:#1e1e1e;border:1px solid #333;" class="rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="bg-gradient-to-r from-orange-600 to-red-600 p-6 text-white sticky top-0 rounded-t-3xl">
+                <h3 class="text-2xl font-black mb-2" id="modalTitle">Selecciona tus salsas</h3>
+                <p class="text-sm opacity-90" id="modalSubtitle"></p>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="salsaOptions"></div>
+                <div class="mt-6 flex gap-3">
+                    <button onclick="closeSalsaModal()" style="background:#2a2a2a;color:#aaa;" class="flex-1 font-bold py-3 rounded-xl hover:opacity-80 transition">Cancelar</button>
+                    <button onclick="confirmSalsas()" class="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3 rounded-xl hover:from-orange-600 hover:to-red-600 transition">✅ Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carrito flotante (solo en móvil, ya que en desktop está en navbar) -->
+    <div class="floating-cart md:hidden">
+        <button onclick="openCart()" class="bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full p-4 shadow-2xl hover:scale-110 transition relative">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            <span id="cartCountFloat" class="absolute -top-2 -right-2 bg-yellow-400 text-black font-black rounded-full w-7 h-7 flex items-center justify-center text-sm cart-badge">0</span>
+        </button>
+    </div>
+
+    <!-- Modal Carrito -->
+    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50 p-4">
+        <div style="background:#1a1a1a;border:1px solid #333;" class="rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="bg-gradient-to-r from-orange-600 to-red-600 p-6 text-white sticky top-0 rounded-t-3xl flex justify-between items-center">
+                <h3 class="text-2xl font-black">🛒 Tu Pedido</h3>
+                <button onclick="closeCart()" style="background:rgba(255,255,255,0.2);" class="rounded-full w-9 h-9 flex items-center justify-center font-black text-lg hover:opacity-80 transition">✕</button>
+            </div>
+            <div class="p-6">
+                <div id="cartItems" class="space-y-3 mb-6"></div>
+                <div style="border-top:2px solid #333;" class="pt-4 mb-6">
+                    <div class="flex justify-between text-xl font-black text-white">
+                        <span>TOTAL:</span>
+                        <span id="cartTotal" class="text-orange-400">$0</span>
+                    </div>
+                </div>
+                <div class="space-y-3 mb-6">
+                    <input type="text" id="customerName" placeholder="Tu nombre" class="input-dark">
+                    <input type="tel" id="customerPhone" placeholder="Teléfono (10 dígitos)" class="input-dark">
+                    <textarea id="customerAddress" placeholder="Dirección de entrega (Colonia, calle, número)" rows="3" class="input-dark"></textarea>
+                    <textarea id="customerNotes" placeholder="Notas adicionales (opcional)" rows="2" class="input-dark"></textarea>
+                </div>
+                <!-- Datos de transferencia -->
+                <div style="background:#1e1e1e;border:2px solid #ff4500;" class="rounded-xl p-4 mb-6">
+                    <p class="font-black text-orange-400 mb-3 flex items-center gap-2">🏦 ¿Prefieres pagar por transferencia?</p>
+                    <div class="text-sm space-y-1">
+                        <p><span class="text-gray-500 font-semibold">Banco:</span> <span class="font-black text-white">STP</span></p>
+                        <p><span class="text-gray-500 font-semibold">Nombre:</span> <span class="font-black text-white">Boneless La Granja</span></p>
+                        <p><span class="text-gray-500 font-semibold">CLABE:</span> <span class="font-black text-orange-300 tracking-wider">646180137010519686</span></p>
+                    </div>
+                    <div class="bg-green-600 text-white rounded-lg px-3 py-2 mt-3 flex items-center gap-2">
+                        <span class="text-lg">📲</span>
+                        <p class="text-xs font-black">¡Envía tu comprobante por WhatsApp al confirmar tu pedido!</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="closeCart()" style="background:#2a2a2a;color:#aaa;" class="flex-1 font-bold py-4 rounded-xl hover:opacity-80 transition">Seguir comprando</button>
+                    <button onclick="sendToWhatsApp()" class="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-4 rounded-xl hover:from-green-600 hover:to-green-700 transition flex items-center justify-center gap-2">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        Enviar Pedido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background:#0d0d0d;border-top:2px solid #ff4500;" class="text-white py-10 mt-12" id="contacto">
+        <div class="container mx-auto px-4 text-center">
+            <img src="https://i.ibb.co/1JvtqzTZ/BLG2026.png" alt="Boneless La Granja" class="w-20 h-20 object-contain mx-auto mb-3">
+            <p class="text-2xl font-black text-orange-400 mb-1">Boneless La Granja</p>
+            <p class="text-gray-400 text-sm mb-4">Los boneless más grandes de Reynosa</p>
+            <div class="text-sm space-y-1 mb-6 text-gray-300">
+                <p>📱 WhatsApp: <span class="text-white font-bold">220-561-1383</span></p>
+                <p>🛵 También en <span class="text-orange-400 font-bold">Rappi</span> — busca <span class="text-orange-400 font-bold">Boneless La Granja</span></p>
+                <p>🕐 Lun-Sáb: <span class="text-white font-semibold">8:30AM - 8PM</span> &nbsp;|&nbsp; Dom: <span class="text-white font-semibold">9AM - 7PM</span></p>
+                <p>📦 Entregas en todo Reynosa</p>
+            </div>
+            <div class="flex justify-center gap-4 mb-6">
+                <a href="https://facebook.com/BonelessLaGranja" target="_blank" style="background:#1e1e1e;border:1px solid #333;" class="hover:border-orange-500 rounded-full p-3 transition" title="Facebook">
+                    <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="https://instagram.com/BonelessLaGranja" target="_blank" style="background:#1e1e1e;border:1px solid #333;" class="hover:border-orange-500 rounded-full p-3 transition" title="Instagram">
+                    <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="https://x.com/BonelessLaGranja" target="_blank" style="background:#1e1e1e;border:1px solid #333;" class="hover:border-orange-500 rounded-full p-3 transition" title="X (Twitter)">
+                    <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+            </div>
+            <p class="text-gray-600 text-xs">© 2026 Boneless La Granja · Reynosa, Tamps.</p>
+        </div>
+    </footer>
+
+    <!-- Botón flotante WhatsApp (izquierda) con tooltip -->
+    <div class="fixed bottom-6 left-4 z-50" id="waBtn">
+        <a href="https://wa.me/522205611383?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20el%20men%C3%BA%20%F0%9F%94%A5" target="_blank"
+           class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-full w-14 h-14 shadow-2xl transition-all hover:scale-110 relative">
+            <svg class="w-7 h-7 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            <span id="waTooltip" class="wa-tooltip">¡Hola! ¿Te ayudamos a elegir? 😊</span>
+        </a>
+    </div>
+
+
+    <script>
+const salsas = ['Buffalo','Mango Habanero','BBQ','Lemon Pepper','Mantequilla Parmesano'];
+let cart = [], currentProduct = null, selectedSalsas = [];
+
+// ── Indicador Abierto/Cerrado ─────────────────────────────
+function updateStatus() {
+    const now = new Date();
+    const day = now.getDay();
+    const time = now.getHours() * 60 + now.getMinutes();
+    let isOpen = false;
+    if (day >= 1 && day <= 6) isOpen = time >= 8*60+30 && time < 20*60;
+    else if (day === 0) isOpen = time >= 9*60 && time < 19*60;
+
+    const openHTML = '<span class="status-dot status-open"></span><span>Abierto ahora</span>';
+    const closedHTML = '<span class="status-dot status-closed"></span><span>Cerrado · Pedidos 24/7</span>';
+    const openClass = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-black bg-green-600 text-white';
+    const closedClass = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-black bg-red-700 text-white';
+
+    ['statusBadge','statusBadgeMobile'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.innerHTML = isOpen ? openHTML : closedHTML;
+        el.className = isOpen ? openClass : closedClass;
+    });
+}
+updateStatus();
+setInterval(updateStatus, 60000);
+
+// ── WA Tooltip (aparece a los 5s) ─────────────────────────
+setTimeout(() => {
+    const tip = document.getElementById('waTooltip');
+    if (tip) {
+        tip.classList.add('show');
+        setTimeout(() => tip.classList.remove('show'), 4000);
+    }
+}, 5000);
+
+// ── Scroll animations ─────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+    });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ── Refresco Modal ─────────────────────────────────────────
+function openRefrescoModal() {
+    document.getElementById('refrescoModal').classList.replace('hidden','flex');
+}
+function closeRefrescoModal() {
+    document.getElementById('refrescoModal').classList.replace('flex','hidden');
+}
+function addRefrescoToCart(sabor) {
+    cart.push({ name: sabor, price: 25, type: 'bebida', id: Date.now() });
+    updateCartUI();
+    closeRefrescoModal();
+}
+
+// ── Salsa Modal ────────────────────────────────────────────
+function selectProduct(n, p, pc, m) {
+    currentProduct = { name: n, price: p, pieces: pc, maxSalsas: m };
+    selectedSalsas = [];
+    document.getElementById('modalTitle').textContent = n;
+    const t = m === 1 ? '1 salsa' : `hasta ${m} salsas`;
+    document.getElementById('modalSubtitle').textContent = `Selecciona ${t} para tus ${pc} piezas`;
+    document.getElementById('salsaOptions').innerHTML = salsas.map(s =>
+        `<button onclick="toggleSalsa('${s}')" id="salsa-${s.replace(/ /g,'-')}" class="salsa-btn rounded-xl p-3 transition text-left font-semibold text-sm">${s}</button>`
+    ).join('');
+    document.getElementById('salsaModal').classList.replace('hidden','flex');
+}
+
+function toggleSalsa(s) {
+    const b = document.getElementById(`salsa-${s.replace(/ /g,'-')}`);
+    const i = selectedSalsas.indexOf(s);
+    if (i > -1) {
+        selectedSalsas.splice(i, 1);
+        b.classList.remove('selected');
+    } else {
+        if (selectedSalsas.length < currentProduct.maxSalsas) {
+            selectedSalsas.push(s);
+            b.classList.add('selected');
+        } else {
+            const t = currentProduct.maxSalsas === 1 ? '1 salsa' : `${currentProduct.maxSalsas} salsas`;
+            alert(`Solo puedes seleccionar ${t}`);
+        }
+    }
+}
+
+function confirmSalsas() {
+    if (selectedSalsas.length === 0) { alert('Debes seleccionar al menos una salsa'); return; }
+    cart.push({ ...currentProduct, salsas: [...selectedSalsas], id: Date.now() });
+    updateCartUI();
+    closeSalsaModal();
+}
+
+function closeSalsaModal() {
+    document.getElementById('salsaModal').classList.replace('flex','hidden');
+    currentProduct = null;
+    selectedSalsas = [];
+}
+
+// ── Cart ───────────────────────────────────────────────────
+function addToCart(n, p, t) {
+    cart.push({ name: n, price: p, type: t, id: Date.now() });
+    updateCartUI();
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(i => i.id !== id);
+    updateCartUI();
+    if (cart.length === 0) closeCart();
+}
+
+function updateCartUI() {
+    const total = cart.length;
+    // Update all cart count badges
+    ['cartCount','cartCountFloat'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = total;
+    });
+    const c = document.getElementById('cartItems');
+    if (!c) return;
+    const t = cart.reduce((s, i) => s + i.price, 0);
+    if (cart.length === 0) {
+        c.innerHTML = '<p style="color:#666;" class="text-center py-8">Tu carrito está vacío</p>';
+    } else {
+        c.innerHTML = cart.map(function(i) {
+            const salsaLine = i.salsas ? '<p style="color:#aaa;" class="text-sm">🌶️ ' + i.salsas.join(', ') + '</p>' : '';
+            return '<div style="background:#2a2a2a;border:1px solid #333;" class="flex justify-between items-start p-3 rounded-xl">'
+                + '<div class="flex-1">'
+                + '<p class="font-bold text-white">' + i.name + '</p>'
+                + salsaLine
+                + '</div>'
+                + '<div class="flex items-center gap-3">'
+                + '<span class="font-black text-orange-400 text-lg">$' + i.price + '</span>'
+                + '<button onclick="removeFromCart(' + i.id + ')" style="color:#ef4444;" class="hover:opacity-70 transition">'
+                + '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>'
+                + '</button></div></div>';
+        }).join('');
+    }
+    document.getElementById('cartTotal').textContent = '$' + t;
+}
+
+function openCart() {
+    if (cart.length === 0) { alert('Tu carrito está vacío. Agrega productos primero.'); return; }
+    document.getElementById('cartModal').classList.replace('hidden','flex');
+}
+
+function closeCart() {
+    document.getElementById('cartModal').classList.replace('flex','hidden');
+}
+
+function sendToWhatsApp() {
+    const n = document.getElementById('customerName').value.trim();
+    const ph = document.getElementById('customerPhone').value.trim();
+    const a = document.getElementById('customerAddress').value.trim();
+    const nt = document.getElementById('customerNotes').value.trim();
+    if (!n || !ph || !a) { alert('Por favor completa tu nombre, teléfono y dirección'); return; }
+    if (cart.length === 0) { alert('Tu carrito está vacío'); return; }
+    const t = cart.reduce((s, i) => s + i.price, 0);
+    let m = `🐔 *NUEVO PEDIDO - BONELESS LA GRANJA*\n\n👤 *Cliente:* ${n}\n📱 *Teléfono:* ${ph}\n📍 *Dirección:* ${a}\n\n🛒 *PEDIDO:*\n━━━━━━━━━━━━━━━\n`;
+    cart.forEach((i, x) => {
+        m += `\n${x+1}. *${i.name}* - $${i.price}\n`;
+        if (i.salsas) m += `   🌶️ Salsas: ${i.salsas.join(', ')}\n`;
+    });
+    m += `\n━━━━━━━━━━━━━━━\n💰 *TOTAL: $${t}*\n`;
+    if (nt) m += `\n📝 Notas: ${nt}`;
+    window.open('https://wa.me/522205611383?text=' + encodeURIComponent(m), '_blank');
+
+    // Sumar puntos si el cliente está registrado en Club Granja
+    var earned = addLoyaltyPoints(n, ph, t);
+    if (earned) {
+        var db = getLoyaltyDB();
+        var key = makeKey(n, ph);
+        var totalPts = db[key] ? db[key].points : 0;
+        setTimeout(function() {
+            alert('🏆 ¡Club Granja!\n\n+25 pts por pedir\n+' + (earned-25) + ' pts por $' + t + ' gastados\n\nTotal ganado hoy: +' + earned + ' pts\nTus puntos: ' + totalPts + ' pts');
+        }, 800);
+    }
+}
+
+
+var LOYALTY_KEY = 'blg_loyalty';
+var LOYALTY_SESSION = 'blg_loyalty_session';
+
+var REWARDS = [
+    { id:'r1', pts:100, icon:'🌶️', title:'2 Salsas extra gratis',      desc:'Dos salsas adicionales en tu próximo pedido' },
+    { id:'r2', pts:150, icon:'🥤', title:'Refresco + Salsa gratis',     desc:'Refresco 355ml y una salsa en tu próximo pedido' },
+    { id:'r3', pts:250, icon:'🍟', title:'Papas Clásicas gratis',       desc:'Una orden de Papas Clásicas en tu próximo pedido' },
+    { id:'r4', pts:400, icon:'🚚', title:'Envío gratis + Salsa',        desc:'Delivery sin costo y salsa extra en tu próximo pedido' },
+    { id:'r5', pts:600, icon:'🐔', title:'JUMBO gratis',                desc:'¡Un paquete JUMBO (5 piezas) completamente gratis!' },
+    { id:'r6', pts:900, icon:'🔥', title:'Individual Bestial gratis',   desc:'¡Un Individual Bestial completo sin costo!' }
+];
+
+var LEVELS = [
+    { name:'🐣 Pollito',   min:0,    max:200  },
+    { name:'🍗 Granjero',  min:200,  max:500  },
+    { name:'🔥 Bestial',   min:500,  max:1000 },
+    { name:'💎 Leyenda',   min:1000, max:99999 }
+];
+
+function getLoyaltyDB() {
+    try { return JSON.parse(localStorage.getItem(LOYALTY_KEY) || '{}'); } catch(e) { return {}; }
+}
+function saveLoyaltyDB(db) {
+    localStorage.setItem(LOYALTY_KEY, JSON.stringify(db));
+}
+function makeKey(name, phone) {
+    return (name.trim().toLowerCase() + '_' + phone.trim().replace(/\D/g,'')).slice(0,60);
+}
+
+function loyaltyRegister() {
+    var name  = document.getElementById('loyaltyName').value.trim();
+    var phone = document.getElementById('loyaltyPhone').value.trim().replace(/\D/g,'');
+    var msg   = document.getElementById('loyaltyMsg');
+    if (!name || phone.length < 10) {
+        showLoyaltyMsg('Por favor ingresa tu nombre y teléfono de 10 dígitos', 'red');
+        return;
+    }
+    var db  = getLoyaltyDB();
+    var key = makeKey(name, phone);
+    if (db[key]) {
+        showLoyaltyMsg('¡Ya tienes una cuenta! Usa "Consultar mis puntos"', 'orange');
+        return;
+    }
+    db[key] = { name:name, phone:phone, points:0, orders:0, spent:0, history:[], rewards:[] };
+    saveLoyaltyDB(db);
+    localStorage.setItem(LOYALTY_SESSION, key);
+    showDashboard(db[key]);
+    showLoyaltyMsg('', '');
+}
+
+function loyaltyLogin() {
+    var name  = document.getElementById('loyaltyName').value.trim();
+    var phone = document.getElementById('loyaltyPhone').value.trim().replace(/\D/g,'');
+    if (!name || phone.length < 10) {
+        showLoyaltyMsg('Por favor ingresa tu nombre y teléfono de 10 dígitos', 'red');
+        return;
+    }
+    var db  = getLoyaltyDB();
+    var key = makeKey(name, phone);
+    if (!db[key]) {
+        showLoyaltyMsg('No encontramos tu cuenta. ¿Ya te registraste?', 'red');
+        return;
+    }
+    localStorage.setItem(LOYALTY_SESSION, key);
+    showDashboard(db[key]);
+}
+
+function loyaltyLogout() {
+    localStorage.removeItem(LOYALTY_SESSION);
+    document.getElementById('loyaltyLogin').classList.remove('hidden');
+    document.getElementById('loyaltyDashboard').classList.add('hidden');
+    document.getElementById('loyaltyName').value = '';
+    document.getElementById('loyaltyPhone').value = '';
+}
+
+function showLoyaltyMsg(text, color) {
+    var el = document.getElementById('loyaltyMsg');
+    el.textContent = text;
+    el.style.color = color === 'red' ? '#ef4444' : color === 'orange' ? '#f97316' : '#22c55e';
+    if (text) el.classList.remove('hidden'); else el.classList.add('hidden');
+}
+
+function getLevel(pts) {
+    for (var i = LEVELS.length - 1; i >= 0; i--) {
+        if (pts >= LEVELS[i].min) return i;
+    }
+    return 0;
+}
+
+function showDashboard(member) {
+    document.getElementById('loyaltyLogin').classList.add('hidden');
+    document.getElementById('loyaltyDashboard').classList.remove('hidden');
+    document.getElementById('dashName').textContent  = member.name;
+    document.getElementById('dashPhone').textContent = member.phone;
+    document.getElementById('dashPoints').textContent = member.points;
+    document.getElementById('dashOrders').textContent = member.orders;
+    document.getElementById('dashSpent').textContent  = '$' + member.spent;
+
+    // Level bar
+    var lvlIdx  = getLevel(member.points);
+    var lvl     = LEVELS[lvlIdx];
+    var nextLvl = LEVELS[Math.min(lvlIdx+1, LEVELS.length-1)];
+    var pct     = lvlIdx >= LEVELS.length-1 ? 100
+                : Math.round(((member.points - lvl.min) / (nextLvl.min - lvl.min)) * 100);
+    document.getElementById('dashLevelLabel').textContent = lvl.name;
+    document.getElementById('dashNextLabel').textContent  = lvlIdx < LEVELS.length-1 ? nextLvl.name : '¡Nivel máximo!';
+    setTimeout(function() { document.getElementById('dashProgress').style.width = pct + '%'; }, 100);
+
+    // Rewards
+    var rHTML = '';
+    REWARDS.forEach(function(r) {
+        var canRedeem = member.points >= r.pts;
+        rHTML += '<div class="reward-card' + (canRedeem ? '' : ' disabled') + '">'
+            + '<div class="flex items-center gap-3">'
+            + '<span style="font-size:1.8rem;">' + r.icon + '</span>'
+            + '<div><p class="font-black text-white text-sm">' + r.title + '</p>'
+            + '<p style="color:#aaa;font-size:0.75rem;">' + r.desc + '</p></div></div>'
+            + '<div class="text-right flex-shrink-0">'
+            + '<p class="text-orange-400 font-black text-sm">' + r.pts + ' pts</p>'
+            + (canRedeem
+                ? '<button onclick="redeemReward(\'' + r.id + '\')" class="mt-1 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold px-3 py-1 rounded-lg text-xs hover:opacity-90 transition">Canjear</button>'
+                : '<p style="color:#555;font-size:0.7rem;" class="mt-1">Te faltan ' + (r.pts - member.points) + ' pts</p>')
+            + '</div></div>';
+    });
+    document.getElementById('rewardsList').innerHTML = rHTML;
+
+    // History
+    var hist = member.history || [];
+    if (hist.length === 0) {
+        document.getElementById('loyaltyHistory').innerHTML = '<p style="color:#555;" class="text-sm text-center py-3">Sin movimientos aún</p>';
+    } else {
+        document.getElementById('loyaltyHistory').innerHTML = hist.slice().reverse().map(function(h) {
+            var plus = h.delta > 0;
+            return '<div class="history-row">'
+                + '<span style="color:#ccc;">' + h.desc + '</span>'
+                + '<span class="' + (plus ? 'pts-plus' : 'pts-minus') + '">'
+                + (plus ? '+' : '') + h.delta + ' pts</span></div>';
+        }).join('');
+    }
+}
+
+function redeemReward(rewardId) {
+    var key = localStorage.getItem(LOYALTY_SESSION);
+    if (!key) return;
+    var db = getLoyaltyDB();
+    var member = db[key];
+    var reward = REWARDS.find(function(r){ return r.id === rewardId; });
+    if (!reward || member.points < reward.pts) return;
+    if (!confirm('¿Canjear "' + reward.title + '" por ' + reward.pts + ' puntos?')) return;
+
+    member.points -= reward.pts;
+    member.history.push({ desc:'Canjeaste: ' + reward.title, delta: -reward.pts, date: new Date().toLocaleDateString('es-MX') });
+    db[key] = member;
+    saveLoyaltyDB(db);
+    showDashboard(member);
+
+    // Notify via WhatsApp
+    var msg = '🎁 *CANJE DE PUNTOS - CLUB GRANJA*\n\n'
+        + '👤 *' + member.name + '* — ' + member.phone + '\n'
+        + reward.icon + ' *Premio:* ' + reward.title + '\n'
+        + '🏆 *Puntos usados:* ' + reward.pts + '\n'
+        + '⭐ *Puntos restantes:* ' + member.points + '\n\n'
+        + '¡Aplica el descuento/premio en su próximo pedido!';
+    window.open('https://wa.me/522205611383?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// Función pública para agregar puntos desde sendToWhatsApp
+function addLoyaltyPoints(name, phone, total) {
+    if (!name || !phone) return;
+    var db  = getLoyaltyDB();
+    var key = makeKey(name, phone);
+    if (!db[key]) return; // solo clientes registrados
+    var earned = 25 + Math.floor(total / 1);
+    db[key].points += earned;
+    db[key].orders += 1;
+    db[key].spent  += total;
+    db[key].history.push({
+        desc: 'Pedido $' + total + ' (' + db[key].orders + 'er pedido)',
+        delta: earned,
+        date: new Date().toLocaleDateString('es-MX')
+    });
+    saveLoyaltyDB(db);
+    return earned;
+}
+
+function requestPhysicalPoints() {
+    var key = localStorage.getItem(LOYALTY_SESSION);
+    if (!key) return;
+    var db     = getLoyaltyDB();
+    var member = db[key];
+    var what   = document.getElementById('physicalWhat').value.trim();
+    var amount = parseInt(document.getElementById('physicalAmount').value);
+    var date   = document.getElementById('physicalDate').value;
+    var msgEl  = document.getElementById('physicalMsg');
+
+    if (!what || !amount || amount < 1 || !date) {
+        msgEl.textContent = 'Por favor completa todos los campos';
+        msgEl.style.color = '#ef4444';
+        msgEl.classList.remove('hidden');
+        return;
+    }
+
+    // Puntos estimados que se ganarían si se aprueba
+    var estimated = 25 + Math.floor(amount / 1);
+
+    // Mensaje a WhatsApp para que el dueño apruebe
+    var msg = '🧾 *SOLICITUD DE PUNTOS - CLUB GRANJA*\n\n'
+        + '👤 *Cliente:* ' + member.name + '\n'
+        + '📱 *Teléfono:* ' + member.phone + '\n\n'
+        + '🛒 *Lo que pidió:* ' + what + '\n'
+        + '💰 *Monto:* $' + amount + '\n'
+        + '📅 *Fecha:* ' + date + '\n'
+        + '⭐ *Puntos a otorgar:* ' + estimated + ' pts\n\n'
+        + '✅ Para APROBAR responde:\n'
+        + 'APROBAR ' + key + ' ' + estimated + '\n\n'
+        + '❌ Para RECHAZAR responde:\n'
+        + 'RECHAZAR ' + key;
+
+    window.open('https://wa.me/522205611383?text=' + encodeURIComponent(msg), '_blank');
+
+    // Marcar solicitud como pendiente en el historial
+    member.history.push({
+        desc: '⏳ Solicitud pendiente: ' + what + ' ($' + amount + ')',
+        delta: 0,
+        date: date
+    });
+    db[key] = member;
+    saveLoyaltyDB(db);
+    showDashboard(member);
+
+    // Limpiar campos
+    document.getElementById('physicalWhat').value = '';
+    document.getElementById('physicalAmount').value = '';
+    document.getElementById('physicalDate').value = '';
+
+    msgEl.textContent = '✅ Solicitud enviada. Te avisamos cuando sea aprobada.';
+    msgEl.style.color = '#22c55e';
+    msgEl.classList.remove('hidden');
+}
+
+// ── APROBAR PUNTOS (para uso del dueño desde consola si es necesario) ──
+function approvePoints(memberKey, pts) {
+    var db = getLoyaltyDB();
+    if (!db[memberKey]) { console.log('Cliente no encontrado'); return; }
+    db[memberKey].points += pts;
+    db[memberKey].history.push({
+        desc: '✅ Puntos aprobados por compra física',
+        delta: pts,
+        date: new Date().toLocaleDateString('es-MX')
+    });
+    saveLoyaltyDB(db);
+    console.log('✅ ' + pts + ' puntos agregados a ' + db[memberKey].name + '. Total: ' + db[memberKey].points);
+}
+
+</script>
+
+
+<!-- Modal imagen ampliada -->
+<div class="img-modal" id="imgModal" onclick="this.classList.remove('open')">
+    <img id="imgModalImg" src="" alt="Foto ampliada">
+</div>
+</body>
+</html>

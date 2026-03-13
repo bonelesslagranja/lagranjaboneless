@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reseñas ⭐ — Boneless La Granja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+        * { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: #111111; color: #fff; }
+        .navbar { background: rgba(15,15,15,0.97); backdrop-filter: blur(12px); border-bottom: 2px solid #ff4500; }
+        .nav-link { color: #ccc; font-weight: 600; font-size: 0.82rem; padding: 6px 12px; border-radius: 8px; transition: all 0.2s; text-decoration: none; }
+        .nav-link:hover { color: #ff6b35; background: rgba(255,107,53,0.1); }
+        .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        .reviews-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 8px; }
+        .reviews-track::-webkit-scrollbar { height: 4px; }
+        .reviews-track::-webkit-scrollbar-thumb { background: #ff4500; border-radius: 4px; }
+        .review-card { min-width: 280px; max-width: 280px; scroll-snap-align: start; background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 16px; padding: 20px; transition: all 0.3s; flex-shrink: 0; }
+        .review-card:hover { border-color: #ff4500; transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html">
+                    <img src="https://i.ibb.co/1JvtqzTZ/BLG2026.png" alt="Boneless La Granja" class="h-12 w-12 object-contain">
+                </a>
+                <div class="flex items-center gap-3">
+                    <a href="index.html" class="nav-link">← Regresar al menú</a>
+                    <a href="index.html#boneless" class="hidden md:inline nav-link">🐔 Pedir</a>
+                    <a href="index.html#fidelidad" class="hidden md:inline nav-link">🏆 Club Granja</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8 max-w-3xl">
+        <!-- RESEÑAS CAROUSEL -->
+        <section class="mb-12 fade-in" id="resenas">
+            <h2 class="text-3xl font-black mb-6 text-orange-400">⭐ Lo que dicen nuestros clientes</h2>
+            <div class="reviews-track">
+                <div class="review-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-black">V</div>
+                        <div><p class="font-black text-white">Vanessa V.</p><p class="text-yellow-400 text-sm">★★★★★</p></div>
+                    </div>
+                    <p class="text-gray-400 text-sm">"Son los boneless más grandes que he probado en mi vida, no exageran para nada. Vale cada peso 🔥"</p>
+                </div>
+                <div class="review-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-white font-black">Y</div>
+                        <div><p class="font-black text-white">Yuliana H.</p><p class="text-yellow-400 text-sm">★★★★★</p></div>
+                    </div>
+                    <p class="text-gray-400 text-sm">"El Individual Bestial lo pedimos entre dos y quedamos bien llenos 😄 La salsa Mango Habanero está riquísima, ya es mi favorita."</p>
+                </div>
+                <div class="review-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-white font-black">J</div>
+                        <div><p class="font-black text-white">Javier L.</p><p class="text-yellow-400 text-sm">★★★★★</p></div>
+                    </div>
+                    <p class="text-gray-400 text-sm">"La Lemon Pepper está genial, le da un sabor diferente que no esperaba. Ya los he recomendado con toda mi familia 👌"</p>
+                </div>
+                <div class="review-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-orange-400 rounded-full flex items-center justify-center text-white font-black">M</div>
+                        <div><p class="font-black text-white">María G.</p><p class="text-yellow-400 text-sm">★★★★★</p></div>
+                    </div>
+                    <p class="text-gray-400 text-sm">"El MEGA nos duró 2 días en casa 😂 Los boneless son gigantes de verdad, no como en otros lugares. Ya somos clientes fijos."</p>
+                </div>
+                <div class="review-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-red-400 rounded-full flex items-center justify-center text-white font-black">C</div>
+                        <div><p class="font-black text-white">Carlos R.</p><p class="text-yellow-400 text-sm">★★★★★</p></div>
+                    </div>
+                    <p class="text-gray-400 text-sm">"Pedí el Individual Bestial y no lo podía terminar solo 🔥 La salsa Mango Habanero está brutal. El mejor precio-calidad que he encontrado."</p>
+                </div>
+                <div class="review-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-white font-black">L</div>
+                        <div><p class="font-black text-white">Laura M.</p><p class="text-yellow-400 text-sm">★★★★★</p></div>
+                    </div>
+                    <p class="text-gray-400 text-sm">"Pedimos el ULTRA para la reunión familiar y todos quedaron impresionados del tamaño. La entrega fue rápida y todo bien caliente. ¡100% recomendado!"</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center mt-8">
+            <a href="comentarios.html" class="inline-block bg-gradient-to-r from-orange-500 to-red-500 text-white font-black px-8 py-3 rounded-full text-lg hover:scale-105 transition">
+                💬 Dejar mi comentario
+            </a>
+        </div>
+    </div>
+
+    <footer style="background:#0d0d0d;border-top:1px solid #222;" class="text-center py-6 mt-8">
+        <p class="text-gray-600 text-sm">© 2026 <span class="text-orange-400 font-bold">Boneless La Granja</span> · Reynosa, Tamps.</p>
+        <a href="index.html" class="text-orange-400 font-bold text-sm hover:underline mt-1 inline-block">← Volver al menú principal</a>
+    </footer>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); } });
+        }, {threshold:0.08});
+        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+    });
+    </script>
+
+</body>
+</html>

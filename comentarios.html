@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentarios 💬 — Boneless La Granja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+        * { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: #111111; color: #fff; }
+        .navbar { background: rgba(15,15,15,0.97); backdrop-filter: blur(12px); border-bottom: 2px solid #ff4500; }
+        .nav-link { color: #ccc; font-weight: 600; font-size: 0.82rem; padding: 6px 12px; border-radius: 8px; transition: all 0.2s; text-decoration: none; }
+        .nav-link:hover { color: #ff6b35; background: rgba(255,107,53,0.1); }
+        .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        .star-btn { color: #555; user-select: none; }
+        .star-btn.active { color: #facc15; }
+        .comment-card { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 16px; padding: 18px; transition: border-color 0.3s; }
+        .comment-card:hover { border-color: #ff4500; }
+        .comment-img { width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin-top: 10px; cursor: pointer; }
+        .img-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9999; align-items:center; justify-content:center; padding:16px; }
+        .img-modal.open { display:flex; }
+        .img-modal img { max-width:100%; max-height:90vh; border-radius:12px; object-fit:contain; }
+        .input-dark { background: #1e1e1e; border: 2px solid #333; color: #fff; border-radius: 10px; padding: 12px; width: 100%; }
+        .input-dark::placeholder { color: #666; }
+        .input-dark:focus { outline: none; border-color: #ff4500; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html">
+                    <img src="https://i.ibb.co/1JvtqzTZ/BLG2026.png" alt="Boneless La Granja" class="h-12 w-12 object-contain">
+                </a>
+                <div class="flex items-center gap-3">
+                    <a href="index.html" class="nav-link">← Regresar al menú</a>
+                    <a href="index.html#boneless" class="hidden md:inline nav-link">🐔 Pedir</a>
+                    <a href="index.html#fidelidad" class="hidden md:inline nav-link">🏆 Club Granja</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <!-- SECCIÓN DE COMENTARIOS -->
+        <section class="mb-12 fade-in" id="comentarios">
+            <h2 class="text-3xl font-black mb-2 text-orange-400">💬 Deja tu comentario</h2>
+            <p class="text-gray-400 text-sm mb-6">¿Ya probaste nuestros boneless? ¡Cuéntanos tu experiencia!</p>
+
+            <!-- Formulario -->
+            <div style="background:#1e1e1e;border:1px solid #2a2a2a;" class="rounded-2xl p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-2">👤 Tu nombre *</label>
+                        <input type="text" id="commentName" placeholder="Ej: María G." class="input-dark" maxlength="40">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-2">⭐ Calificación *</label>
+                        <div class="flex gap-2 mt-1" id="starRating">
+                            <span class="star-btn text-3xl cursor-pointer transition-transform hover:scale-125" data-val="1">☆</span>
+                            <span class="star-btn text-3xl cursor-pointer transition-transform hover:scale-125" data-val="2">☆</span>
+                            <span class="star-btn text-3xl cursor-pointer transition-transform hover:scale-125" data-val="3">☆</span>
+                            <span class="star-btn text-3xl cursor-pointer transition-transform hover:scale-125" data-val="4">☆</span>
+                            <span class="star-btn text-3xl cursor-pointer transition-transform hover:scale-125" data-val="5">☆</span>
+                        </div>
+                        <input type="hidden" id="commentStars" value="0">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-bold text-gray-300 mb-2">💬 Tu comentario *</label>
+                    <textarea id="commentText" placeholder="¿Qué te pareció? ¿Cuál fue tu salsa favorita? ¡Cuéntanos todo!" rows="3" class="input-dark" maxlength="300"></textarea>
+                    <p class="text-xs text-gray-600 mt-1 text-right"><span id="charCount">0</span>/300</p>
+                </div>
+                <div class="mb-5">
+                    <label class="block text-sm font-bold text-gray-300 mb-2">📸 Foto de tu pedido <span class="text-gray-500 font-normal">(opcional)</span></label>
+                    <label for="commentPhoto" style="background:#2a2a2a;border:2px dashed #444;cursor:pointer;" class="flex flex-col items-center justify-center py-5 rounded-xl hover:border-orange-500 transition" id="photoLabel">
+                        <span class="text-3xl mb-1">📷</span>
+                        <span class="text-sm text-gray-400">Toca para subir una foto</span>
+                        <span class="text-xs text-gray-600 mt-1">JPG, PNG — máx. 5MB</span>
+                    </label>
+                    <input type="file" id="commentPhoto" accept="image/*" class="hidden" onchange="previewPhoto(event)">
+                    <div id="photoPreviewContainer" class="hidden mt-3 relative">
+                        <img id="photoPreview" class="w-full max-h-48 object-cover rounded-xl">
+                        <button onclick="removePhoto()" style="background:rgba(0,0,0,0.7);top:8px;right:8px;" class="absolute rounded-full w-8 h-8 flex items-center justify-center text-white font-black hover:bg-red-600 transition text-sm">✕</button>
+                    </div>
+                </div>
+                <button onclick="submitComment()" class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-black py-4 rounded-xl hover:from-orange-600 hover:to-red-600 transition text-lg shadow-lg">
+                    🚀 Publicar Comentario
+                </button>
+            </div>
+
+            <!-- Comentarios publicados -->
+            <div id="commentsContainer">
+                <h3 class="text-xl font-black text-gray-300 mb-4" id="commentsTitle">Cargando comentarios...</h3>
+                <div id="commentsList" class="space-y-4"></div>
+            </div>
+        </section>
+
+        <div class="text-center mt-4">
+            <a href="resenas.html" class="text-orange-400 font-bold text-sm hover:underline">⭐ Ver reseñas de clientes</a>
+        </div>
+    </div>
+
+    <!-- Modal imagen ampliada -->
+    <div class="img-modal" id="imgModal" onclick="this.classList.remove('open')">
+        <img id="imgModalImg" src="" alt="Foto ampliada">
+    </div>
+
+
+    <footer style="background:#0d0d0d;border-top:1px solid #222;" class="text-center py-6 mt-8">
+        <p class="text-gray-600 text-sm">© 2026 <span class="text-orange-400 font-bold">Boneless La Granja</span> · Reynosa, Tamps.</p>
+        <a href="index.html" class="text-orange-400 font-bold text-sm hover:underline mt-1 inline-block">← Volver al menú principal</a>
+    </footer>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); } });
+        }, {threshold:0.08});
+        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+    });
+    </script>
+
+    <script>
+// ── SISTEMA DE COMENTARIOS ────────────────────────────────
+let currentRating = 0;
+let photoDataURL = null;
+
+// Estrellas
+document.querySelectorAll('.star-btn').forEach(star => {
+    star.addEventListener('click', () => {
+        currentRating = parseInt(star.dataset.val);
+        document.getElementById('commentStars').value = currentRating;
+        renderStars(currentRating);
+    });
+    star.addEventListener('mouseover', () => renderStars(parseInt(star.dataset.val)));
+    star.addEventListener('mouseout', () => renderStars(currentRating));
+});
+
+function renderStars(n) {
+    document.querySelectorAll('.star-btn').forEach((s, i) => {
+        s.textContent = i < n ? '★' : '☆';
+        s.classList.toggle('active', i < n);
+    });
+}
+
+// Contador de caracteres
+document.getElementById('commentText').addEventListener('input', function() {
+    document.getElementById('charCount').textContent = this.value.length;
+});
+
+// Preview foto
+function previewPhoto(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { alert('La foto no debe superar 5MB'); return; }
+    const reader = new FileReader();
+    reader.onload = ev => {
+        photoDataURL = ev.target.result;
+        document.getElementById('photoPreview').src = photoDataURL;
+        document.getElementById('photoPreviewContainer').classList.remove('hidden');
+        document.getElementById('photoLabel').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+}
+
+function removePhoto() {
+    photoDataURL = null;
+    document.getElementById('commentPhoto').value = '';
+    document.getElementById('photoPreviewContainer').classList.add('hidden');
+    document.getElementById('photoLabel').style.display = 'flex';
+}
+
+// Guardar y cargar comentarios (localStorage del navegador)
+function getComments() {
+    try { return JSON.parse(localStorage.getItem('blg_comments') || '[]'); } catch { return []; }
+}
+
+function saveComment(c) {
+    const all = getComments();
+    all.unshift(c); // más nuevo primero
+    if (all.length > 50) all.pop(); // máximo 50
+    localStorage.setItem('blg_comments', JSON.stringify(all));
+}
+
+function submitComment() {
+    const name = document.getElementById('commentName').value.trim();
+    const stars = parseInt(document.getElementById('commentStars').value);
+    const text = document.getElementById('commentText').value.trim();
+
+    if (!name) { alert('Por favor escribe tu nombre'); return; }
+    if (stars === 0) { alert('Por favor selecciona una calificación'); return; }
+    if (!text) { alert('Por favor escribe tu comentario'); return; }
+
+    const comment = {
+        id: Date.now(),
+        name,
+        stars,
+        text,
+        photo: photoDataURL || null,
+        date: new Date().toLocaleDateString('es-MX', { day:'numeric', month:'short', year:'numeric' })
+    };
+
+    saveComment(comment);
+    renderComments();
+    sendCommentToWhatsApp(comment);
+
+    // Reset form
+    document.getElementById('commentName').value = '';
+    document.getElementById('commentText').value = '';
+    document.getElementById('charCount').textContent = '0';
+    currentRating = 0;
+    photoDataURL = null;
+    document.getElementById('commentStars').value = '0';
+    renderStars(0);
+    removePhoto();
+
+    // Mensaje de éxito
+    const btn = document.querySelector('#comentarios button[onclick="submitComment()"]');
+    btn.textContent = '✅ ¡Comentario publicado!';
+    btn.style.background = '#16a34a';
+    setTimeout(() => {
+        btn.textContent = '🚀 Publicar Comentario';
+        btn.style.background = '';
+    }, 3000);
+}
+
+function sendCommentToWhatsApp(c) {
+    const stars = '★'.repeat(c.stars) + '☆'.repeat(5 - c.stars);
+    let msg = `💬 *NUEVO COMENTARIO - BONELESS LA GRANJA*\n\n👤 *${c.name}*\n${stars}\n\n"${c.text}"\n\n📅 ${c.date}`;
+    if (c.photo) msg += `\n\n📸 _(incluye foto)_`;
+    window.open(`https://wa.me/522205611383?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function renderComments() {
+    const all = getComments();
+    const title = document.getElementById('commentsTitle');
+    const list = document.getElementById('commentsList');
+
+    if (all.length === 0) {
+        title.textContent = '¡Sé el primero en comentar! 👇';
+        list.innerHTML = '';
+        return;
+    }
+
+    title.textContent = all.length + ' comentario' + (all.length !== 1 ? 's' : '');
+    list.innerHTML = all.map(function(c) {
+        const hue = (c.name.charCodeAt(0) * 7) % 360;
+        const stars = '★'.repeat(c.stars) + '☆'.repeat(5 - c.stars);
+        const photoHTML = c.photo
+            ? '<img src="' + c.photo + '" class="comment-img" onclick="openImgModal(' + c.id + ')" alt="Foto del pedido">'
+            : '';
+        return '<div class="comment-card fade-in visible">'
+            + '<div class="flex items-start justify-between gap-3">'
+            + '<div class="flex items-center gap-3">'
+            + '<div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-white flex-shrink-0" style="background:hsl(' + hue + ',65%,45%)">'
+            + c.name.charAt(0).toUpperCase()
+            + '</div>'
+            + '<div>'
+            + '<p class="font-black text-white text-sm">' + escapeHTML(c.name) + '</p>'
+            + '<p class="text-yellow-400 text-sm">' + stars + '</p>'
+            + '</div></div>'
+            + '<span class="text-xs text-gray-500 flex-shrink-0">' + c.date + '</span>'
+            + '</div>'
+            + '<p class="text-gray-300 text-sm mt-3 leading-relaxed">&ldquo;' + escapeHTML(c.text) + '&rdquo;</p>'
+            + photoHTML
+            + '</div>';
+    }).join('');
+}
+
+function escapeHTML(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Modal para foto ampliada
+function openImgModal(id) {
+    const all = getComments();
+    const c = all.find(x => x.id == id);
+    if (!c || !c.photo) return;
+    document.getElementById('imgModalImg').src = c.photo;
+    document.getElementById('imgModal').classList.add('open');
+}
+
+// Cargar comentarios al inicio
+renderComments();
+
+
+    </script>
+</body>
+</html>
