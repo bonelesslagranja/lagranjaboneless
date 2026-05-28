@@ -195,7 +195,148 @@
     </section>
 
     <div class="container mx-auto px-4 py-8" id="boneless">
-        
+        <section class="mb-12 fade-in">
+    <h2 class="text-xl md:text-3xl font-black mb-2 text-orange-400">🍔 Las Hamburguesas de La Granja</h2>
+    <p class="text-gray-400 text-sm mb-5">
+        Carne 100% artesanal hecha a mano (110g) o pollo crujiente, pan brioche premium,
+        vegetales frescos, queso amarillo fundido y nuestro aderezo secreto de la casa.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <!-- LA RANCHERITA -->
+        <div class="rounded-2xl overflow-hidden product-card">
+            <div class="bg-gradient-to-r from-red-800 to-red-600 p-4 text-white">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-lg md:text-xl font-black">🍔 La Rancherita</h3>
+                        <p class="text-xs opacity-80 mt-0.5">La clásica con carne artesanal y aderezo secreto</p>
+                    </div>
+                    <div class="text-right flex-shrink-0 ml-2">
+                        <p class="text-xs opacity-70">Individual</p>
+                        <p class="text-2xl font-black">$99</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4">
+                <div style="background:#0f2d0f;border:1px solid #16a34a;border-radius:10px;padding:12px;margin-bottom:14px;">
+                    <p class="text-xs font-black text-green-400 mb-1">🎁 COMBO RANCHERITA — $139</p>
+                    <p class="text-xs text-gray-400">Hamburguesa + Papas fritas + Refresco o Agua</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="addToCart('Rancherita (Individual)', 99, 'hamburguesa')"
+                        class="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-2.5 rounded-xl hover:from-orange-600 hover:to-red-600 transition text-sm">
+                        Individual $99
+                    </button>
+                    <button onclick="addToCart('Combo Rancherita', 139, 'hamburguesa')"
+                        class="flex-1 bg-green-600 text-white font-bold py-2.5 rounded-xl hover:bg-green-700 transition text-sm">
+                        Combo $139
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LA RANCHERITA ESPECIAL -->
+        <div class="rounded-2xl overflow-hidden product-card">
+            <div class="bg-gradient-to-r from-orange-700 to-red-700 p-4 text-white">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-lg md:text-xl font-black">🥓 La Rancherita Especial</h3>
+                        <p class="text-xs opacity-80 mt-0.5">Con tocino a la plancha y aderezo secreto</p>
+                    </div>
+                    <div class="text-right flex-shrink-0 ml-2">
+                        <p class="text-xs opacity-70">Individual</p>
+                        <p class="text-2xl font-black">$119</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4">
+                <div style="background:#0f2d0f;border:1px solid #16a34a;border-radius:10px;padding:12px;margin-bottom:14px;">
+                    <p class="text-xs font-black text-green-400 mb-1">🎁 COMBO RANCHERITA ESPECIAL — $159</p>
+                    <p class="text-xs text-gray-400">Hamburguesa + Papas fritas + Refresco o Agua</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="addToCart('Rancherita Especial (Individual)', 119, 'hamburguesa')"
+                        class="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-2.5 rounded-xl hover:from-orange-600 hover:to-red-600 transition text-sm">
+                        Individual $119
+                    </button>
+                    <button onclick="addToCart('Combo Rancherita Especial', 159, 'hamburguesa')"
+                        class="flex-1 bg-green-600 text-white font-bold py-2.5 rounded-xl hover:bg-green-700 transition text-sm">
+                        Combo $159
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LA TUMBADA BESTIAL -->
+        <div class="rounded-2xl overflow-hidden product-card border border-orange-700">
+            <div class="bg-gradient-to-r from-yellow-600 to-orange-600 p-4 text-white">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-lg md:text-xl font-black">🍍 La Tumbada Bestial</h3>
+                        <p class="text-xs opacity-80 mt-0.5">Tocino crujiente y piña asada. ¡La jefa!</p>
+                    </div>
+                    <div class="text-right flex-shrink-0 ml-2">
+                        <p class="text-xs opacity-70">Individual</p>
+                        <p class="text-2xl font-black">$129</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4">
+                <div style="background:#0f2d0f;border:1px solid #16a34a;border-radius:10px;padding:12px;margin-bottom:14px;">
+                    <p class="text-xs font-black text-green-400 mb-1">🎁 COMBO TUMBADA BESTIAL — $169</p>
+                    <p class="text-xs text-gray-400">Hamburguesa + Papas fritas + Refresco o Agua</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="addToCart('La Tumbada Bestial (Individual)', 129, 'hamburguesa')"
+                        class="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-2.5 rounded-xl hover:from-orange-600 hover:to-red-600 transition text-sm">
+                        Individual $129
+                    </button>
+                    <button onclick="addToCart('Combo Tumbada Bestial', 169, 'hamburguesa')"
+                        class="flex-1 bg-green-600 text-white font-bold py-2.5 rounded-xl hover:bg-green-700 transition text-sm">
+                        Combo $169
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LA CRISPY GRANJA -->
+        <div class="rounded-2xl overflow-hidden product-card border-2 border-orange-500">
+            <div class="bg-gradient-to-r from-orange-600 to-red-600 p-4 text-white">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div style="background:rgba(255,255,255,0.2);display:inline-block;font-size:0.6rem;font-weight:900;padding:2px 10px;border-radius:99px;margin-bottom:4px;">
+                            ✨ LA JOYA MIXTA
+                        </div>
+                        <h3 class="text-lg md:text-xl font-black">🐔 La Crispy Granja</h3>
+                        <p class="text-xs opacity-80 mt-0.5">Carne de res + boneless gigante de pollo (150g) con tu salsa</p>
+                    </div>
+                    <div class="text-right flex-shrink-0 ml-2">
+                        <p class="text-xs opacity-70">Individual</p>
+                        <p class="text-2xl font-black">$139</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4">
+                <div style="background:#0f2d0f;border:1px solid #16a34a;border-radius:10px;padding:12px;margin-bottom:14px;">
+                    <p class="text-xs font-black text-green-400 mb-1">🎁 COMBO CRISPY GRANJA — $179</p>
+                    <p class="text-xs text-gray-400">Hamburguesa + Papas fritas + Refresco o Agua</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="selectProduct('La Crispy Granja (Individual)', 139, 1, 1)"
+                        class="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-2.5 rounded-xl hover:from-orange-600 hover:to-red-600 transition text-sm">
+                        Individual $139
+                    </button>
+                    <button onclick="selectProduct('Combo Crispy Granja', 179, 1, 1)"
+                        class="flex-1 bg-green-600 text-white font-bold py-2.5 rounded-xl hover:bg-green-700 transition text-sm">
+                        Combo $179
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
         <section class="mb-12 fade-in">
             <div class="bg-red-500 text-white inline-block px-6 py-2 rounded-full font-black text-lg mb-4 shadow-lg">⭐ MÁS VENDIDO</div>
             <div class="rounded-3xl shadow-2xl overflow-hidden product-card border-2 border-orange-500">
