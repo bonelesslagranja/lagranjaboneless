@@ -235,38 +235,29 @@
             </div>
         </div>
 
-        <!-- LA RANCHERITA ESPECIAL -->
-        <div class="rounded-2xl overflow-hidden product-card">
-            <div class="bg-gradient-to-r from-orange-700 to-red-700 p-4 text-white">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="text-lg md:text-xl font-black">🥓 La Rancherita Especial</h3>
-                        <p class="text-xs opacity-80 mt-0.5">Con tocino a la plancha y aderezo secreto</p>
-                    </div>
-                    <div class="text-right flex-shrink-0 ml-2">
-                        <p class="text-xs opacity-70">Individual</p>
-                        <p class="text-2xl font-black">$119</p>
-                    </div>
-                </div>
+        <!-- LA GRANJERA SUPREMA -->
+<div class="rounded-2xl overflow-hidden product-card border border-orange-700">
+    <div class="bg-gradient-to-r from-orange-700 to-red-700 p-4 text-white">
+        <div style="background:rgba(255,255,255,0.2);display:inline-block;font-size:0.6rem;font-weight:900;padding:2px 10px;border-radius:99px;margin-bottom:4px;">✨ NUEVA</div>
+        <div class="flex justify-between items-start">
+            <div>
+                <h3 class="text-lg md:text-xl font-black">🐔 La Granjera Suprema</h3>
+                <p class="text-xs opacity-80 mt-0.5">Pollo artesanal, queso amarillo, mozarella, vegetales y aderezo secreto</p>
             </div>
-            <div class="p-4">
-                <div style="background:#0f2d0f;border:1px solid #16a34a;border-radius:10px;padding:12px;margin-bottom:14px;">
-                    <p class="text-xs font-black text-green-400 mb-1">🎁 COMBO RANCHERITA ESPECIAL — $159</p>
-                    <p class="text-xs text-gray-400">Hamburguesa + Papas fritas + Refresco o Agua</p>
-                </div>
-                <div class="flex gap-2">
-                    <button onclick="addToCart('Rancherita Especial (Individual)', 119, 'hamburguesa')"
-                        class="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-2.5 rounded-xl hover:from-orange-600 hover:to-red-600 transition text-sm">
-                        Individual $119
-                    </button>
-                    <button onclick="addToCart('Combo Rancherita Especial', 159, 'hamburguesa')"
-                        class="flex-1 bg-green-600 text-white font-bold py-2.5 rounded-xl hover:bg-green-700 transition text-sm">
-                        Combo $159
-                    </button>
-                </div>
+            <div class="text-right flex-shrink-0 ml-2">
+                <p class="text-2xl font-black">$149</p>
             </div>
         </div>
-
+    </div>
+    <div class="p-4">
+        <p class="text-gray-400 text-sm mb-4">Nuestra nueva joya. Carne de pollo 100% artesanal, hecha desde cero en casa, con queso amarillo derretido, mozzarella, vegetales frescos y el aderezo secreto de La Granja.</p>
+        <button onclick="addToCart('La Granjera Suprema', 149, 'hamburguesa')"
+            class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-2.5 rounded-xl hover:from-orange-600 hover:to-red-600 transition text-sm">
+            🛒 Agregar al carrito — $149
+        </button>
+    </div>
+</div>
+     
         <!-- LA TUMBADA BESTIAL -->
         <div class="rounded-2xl overflow-hidden product-card border border-orange-700">
             <div class="bg-gradient-to-r from-yellow-600 to-orange-600 p-4 text-white">
@@ -334,6 +325,38 @@
             </div>
         </div>
 
+        <!-- SECCIÓN: COMBO GRANJA TENDERS -->
+<section class="mb-12 fade-in">
+    <h2 class="text-xl md:text-3xl font-black mb-2 text-orange-400">🍗 Granja Tenders</h2>
+    <p class="text-gray-400 text-sm mb-5">
+        Tiras largas de pechuga de pollo real, súper crujientes por fuera y jugosas por dentro.
+    </p>
+    <div class="rounded-3xl shadow-2xl overflow-hidden product-card border-2 border-orange-500">
+        <div class="bg-gradient-to-r from-yellow-600 to-orange-600 p-4 text-white">
+            <div class="flex justify-between items-start">
+                <div>
+                    <div style="background:rgba(255,255,255,0.2);display:inline-block;font-size:0.6rem;font-weight:900;padding:2px 10px;border-radius:99px;margin-bottom:6px;">🆕 NUEVO</div>
+                    <h3 class="text-xl md:text-3xl font-black">🍗 Combo Granja Tenders</h3>
+                    <p class="text-sm opacity-90 mt-1">3 tiras largas de pechuga real · Aderezo de la casa</p>
+                </div>
+                <div class="text-right flex-shrink-0 ml-3">
+                    <p class="text-3xl md:text-4xl font-black">$169</p>
+                </div>
+            </div>
+        </div>
+        <div class="p-4">
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                3 tiras largas de pechuga de pollo real, súper crujientes por fuera y jugosas por dentro, 
+                acompañadas del aderezo de la casa. Puro sabor pesado, pariente.
+            </p>
+            <button onclick="selectProduct('Combo Granja Tenders', 169, 1, 1)"
+                class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-black py-4 rounded-xl hover:from-orange-600 hover:to-red-600 transition text-base shadow-lg">
+                🛒 Seleccionar salsa →
+            </button>
+        </div>
+    </div>
+</section>
+        
     </div>
 </section>
         <section class="mb-12 fade-in">
