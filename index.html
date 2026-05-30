@@ -156,7 +156,7 @@
                     <p class="text-xs md:text-sm font-semibold opacity-90">Clientes felices</p>
                 </div>
                 <div class="fade-in">
-                    <p class="text-3xl md:text-4xl font-black counter-num">160g</p>
+                    <p class="text-3xl md:text-4xl font-black counter-num">150g</p>
                     <p class="text-xs md:text-sm font-semibold opacity-90">Por pieza</p>
                 </div>
                 <div class="fade-in">
@@ -179,7 +179,7 @@
                 <div class="why-card">
                     <div class="text-4xl mb-3">🏆</div>
                     <h3 class="font-black text-orange-400 text-lg mb-2">Tamaño Real Garantizado</h3>
-                    <p class="text-gray-400 text-sm">Cada pieza pesa 160g. No prometemos lo que no cumplimos.</p>
+                    <p class="text-gray-400 text-sm">Cada pieza pesa 150g. No prometemos lo que no cumplimos.</p>
                 </div>
                 <div class="why-card">
                     <div class="text-4xl mb-3">💰</div>
@@ -246,16 +246,27 @@
                 <p class="text-xs opacity-80 mt-0.5">Pollo artesanal, queso amarillo, mozarella, vegetales y aderezo secreto</p>
             </div>
             <div class="text-right flex-shrink-0 ml-2">
-                <p class="text-2xl font-black">$149</p>
+                <p class="text-xs opacity-70">Individual</p>
+                <p class="text-2xl font-black">$99</p>
             </div>
         </div>
     </div>
     <div class="p-4">
         <p class="text-gray-400 text-sm mb-4">Nuestra nueva joya. Carne de pollo 100% artesanal, hecha desde cero en casa, con queso amarillo derretido, mozzarella, vegetales frescos y el aderezo secreto de La Granja.</p>
-        <button onclick="addToCart('La Granjera Suprema', 149, 'hamburguesa')"
-            class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-2.5 rounded-xl hover:from-orange-600 hover:to-red-600 transition text-sm">
-            🛒 Agregar al carrito — $149
-        </button>
+        <div style="background:#0f2d0f;border:1px solid #16a34a;border-radius:10px;padding:12px;margin-bottom:14px;">
+            <p class="text-xs font-black text-green-400 mb-1">🎁 COMBO GRANJERA SUPREMA — $139</p>
+            <p class="text-xs text-gray-400">Hamburguesa + Papas fritas + Refresco o Agua</p>
+        </div>
+        <div class="flex gap-2">
+            <button onclick="addToCart('La Granjera Suprema (Individual)', 99, 'hamburguesa')"
+                class="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-2.5 rounded-xl hover:from-orange-600 hover:to-red-600 transition text-sm">
+                Individual $99
+            </button>
+            <button onclick="addToCart('Combo Granjera Suprema', 139, 'hamburguesa')"
+                class="flex-1 bg-green-600 text-white font-bold py-2.5 rounded-xl hover:bg-green-700 transition text-sm">
+                Combo $139
+            </button>
+        </div>
     </div>
 </div>
      
