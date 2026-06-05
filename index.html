@@ -416,7 +416,7 @@
                 </div>
                 <div class="p-6">
                     <div class="mb-4">
-                        <p class="text-lg mb-2">✅ 3 Boneless GIGANTES (150-160g c/u)</p>
+                        <p class="text-lg mb-2">✅ 3 Boneless GIGANTES (150-160g c/u) <span class="text-orange-400">o 6 alitas</span></p>
                         <p class="text-sm text-gray-400 mb-2">≈ 9 boneless tradicionales</p>
                         <p class="text-gray-200 text-lg">✅ Papas Clásicas</p>
                         <p class="text-gray-200 text-lg">✅ Vegetales</p>
@@ -440,7 +440,7 @@
                         </div>
                     </div>
                     <div class="p-4">
-                        <p class="font-bold text-lg mb-2 text-white">5 piezas gigantes</p>
+                        <p class="font-bold text-lg mb-2 text-white">5 Boneless gigantes <span class="text-orange-400">o 10 alitas</span></p>
                         <p class="text-sm text-gray-400 mb-1">≈ 15 boneless tradicionales</p>
                         <p class="text-sm text-gray-400 mb-4">750-800g de pollo puro</p>
                         <button onclick="selectProduct('Boneless JUMBO', 175, 5, 1)" class="w-full bg-orange-500 text-white font-bold py-3 rounded-lg hover:bg-orange-600 transition">Seleccionar Salsa →</button>
@@ -456,7 +456,7 @@
                         </div>
                     </div>
                     <div class="p-4">
-                        <p class="font-bold text-lg mb-2 text-white">10 piezas gigantes</p>
+                        <p class="font-bold text-lg mb-2 text-white">10 Boneless gigantes <span class="text-orange-400">o 20 alitas</span></p>
                         <p class="text-sm text-gray-400 mb-1">≈ 30 boneless tradicionales</p>
                         <p class="text-sm text-gray-400 mb-4">1.5 kg de pollo puro</p>
                         <button onclick="selectProduct('Boneless MEGA', 305, 10, 2)" class="w-full bg-orange-500 text-white font-bold py-3 rounded-lg hover:bg-orange-600 transition">Seleccionar Salsas →</button>
@@ -472,7 +472,7 @@
                         </div>
                     </div>
                     <div class="p-4">
-                        <p class="font-bold text-lg mb-2 text-white">15 piezas gigantes</p>
+                        <p class="font-bold text-lg mb-2 text-white">15 Boneless gigantes <span class="text-orange-400">o 30 alitas</span></p>
                         <p class="text-sm text-gray-400 mb-1">≈ 45 boneless tradicionales</p>
                         <p class="text-sm text-gray-400 mb-4">Para compartir... o no 😈</p>
                         <button onclick="selectProduct('Boneless ULTRA', 450, 15, 3)" class="w-full bg-orange-500 text-white font-bold py-3 rounded-lg hover:bg-orange-600 transition">Seleccionar Salsas →</button>
@@ -533,7 +533,7 @@
                     <div class="p-4">
                     <h3 class="font-bold text-lg mb-2 text-white">Cono Cargado</h3>
                     <p class="text-2xl font-black text-orange-400 mb-3">$99</p>
-                    <button onclick="addToCart('Cono Cargado', 99, 'complemento')" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition">Agregar</button>
+                    <button onclick="selectProductComplemento('Cono Cargado', 99)" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition">Seleccionar Salsa →</button>
                     </div>
                 </div>
                 <div class="rounded-xl overflow-hidden product-card">
@@ -549,7 +549,7 @@
                     <div class="p-4">
                     <h3 class="font-bold text-lg mb-2 text-white">Papas Locas</h3>
                     <p class="text-2xl font-black text-orange-400 mb-3">$189</p>
-                    <button onclick="addToCart('Papas Locas', 195, 'complemento')" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition">Agregar</button>
+                    <button onclick="selectProductComplemento('Papas Locas', 195)" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg hover:bg-orange-600 transition">Seleccionar Salsa →</button>
                     </div>
                     </div>
                 <div class="rounded-xl overflow-hidden product-card">
@@ -619,8 +619,12 @@
                                 <div class="flex items-center gap-3"><span class="font-black text-orange-400">$19</span><button onclick="addToCart('Lemon Pepper', 15, 'extra')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
                             </div>
                             <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
-                                <div class="flex items-center gap-3"><span class="text-2xl">🧈</span><span class="font-semibold text-gray-200">Mantequilla Parmesano</span></div>
-                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$19</span><button onclick="addToCart('Mantequilla Parmesano', 15, 'extra')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
+                                <div class="flex items-center gap-3"><span class="text-2xl">🧀</span><span class="font-semibold text-gray-200">Parmesano Cremoso</span></div>
+                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$19</span><button onclick="addToCart('Parmesano Cremoso', 15, 'extra')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
+                            </div>
+                            <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
+                                <div class="flex items-center gap-3"><span class="text-2xl">🌶️</span><span class="font-semibold text-gray-200">Buffalo Pepper</span></div>
+                                <div class="flex items-center gap-3"><span class="font-black text-orange-400">$19</span><button onclick="addToCart('Buffalo Pepper', 15, 'extra')" class="bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-lg hover:bg-orange-600 transition">+ Agregar</button></div>
                             </div>
                             <div class="flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition">
                                 <div class="flex items-center gap-3"><span class="text-2xl">🥬</span><span class="font-semibold text-gray-200">Verdura</span></div>
@@ -770,6 +774,37 @@
         </div>
     </div>
 
+    <!-- Modal Tipo de Pieza (Boneless o Alitas) -->
+    <div id="tipoModal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50 p-4">
+        <div style="background:#1e1e1e;border:1px solid #333;" class="rounded-3xl max-w-sm w-full">
+            <div class="bg-gradient-to-r from-orange-600 to-red-600 p-6 text-white rounded-t-3xl">
+                <h3 class="text-2xl font-black mb-1" id="tipoModalTitle">¿Cómo lo quieres?</h3>
+                <p class="text-sm opacity-90" id="tipoModalSubtitle"></p>
+            </div>
+            <div class="p-6 space-y-4">
+                <button onclick="elegirTipo('boneless')"
+                    style="background:#2a2a2a;border:2px solid #444;color:#fff;"
+                    class="w-full flex items-center gap-4 hover:border-orange-500 rounded-2xl p-5 transition font-bold text-lg">
+                    <span class="text-4xl">🍗</span>
+                    <div class="text-left">
+                        <p class="font-black text-white" id="tipoBonelessLabel">Boneless</p>
+                        <p class="text-sm text-gray-400" id="tipoBonelessSub"></p>
+                    </div>
+                </button>
+                <button onclick="elegirTipo('alitas')"
+                    style="background:#2a2a2a;border:2px solid #444;color:#fff;"
+                    class="w-full flex items-center gap-4 hover:border-orange-500 rounded-2xl p-5 transition font-bold text-lg">
+                    <span class="text-4xl">🍖</span>
+                    <div class="text-left">
+                        <p class="font-black text-white" id="tipoAlitasLabel">Alitas</p>
+                        <p class="text-sm text-gray-400" id="tipoAlitasSub"></p>
+                    </div>
+                </button>
+                <button onclick="closeTipoModal()" style="background:#2a2a2a;color:#aaa;" class="w-full font-bold py-3 rounded-xl hover:opacity-80 transition">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Salsas -->
     <div id="salsaModal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50 p-4">
         <div style="background:#1e1e1e;border:1px solid #333;" class="rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
@@ -878,7 +913,8 @@
 
 
     <script>
-const salsas = ['Buffalo','Mango Habanero','BBQ','Lemon Pepper','Mantequilla Parmesano'];
+const salsas = ['Buffalo','Mango Habanero','BBQ','Lemon Pepper','Parmesano Cremoso','Buffalo Pepper'];
+const salsasComplemento = ['Buffalo','Mango Habanero','BBQ','Parmesano Cremoso'];
 let cart = [], currentProduct = null, selectedSalsas = [];
 
 // ── Indicador Abierto/Cerrado ─────────────────────────────
@@ -937,14 +973,62 @@ function addRefrescoToCart(sabor) {
     closeRefrescoModal();
 }
 
-// ── Salsa Modal ────────────────────────────────────────────
+// ── Mapa boneless → alitas ──────────────────────────────────
+const alitasMap = {
+    3: 6,
+    5: 10,
+    6: 12,
+    10: 20,
+    15: 30
+};
+
+// ── Modal Tipo (Boneless o Alitas) ──────────────────────────
 function selectProduct(n, p, pc, m) {
     currentProduct = { name: n, price: p, pieces: pc, maxSalsas: m };
+    // Solo mostrar selección de tipo si el paquete tiene equivalencia de alitas
+    if (alitasMap[pc]) {
+        const alitas = alitasMap[pc];
+        document.getElementById('tipoModalTitle').textContent = n;
+        document.getElementById('tipoModalSubtitle').textContent = '¿Cómo prefieres tu orden?';
+        document.getElementById('tipoBonelessLabel').textContent = `${pc} Boneless gigantes`;
+        document.getElementById('tipoBonelessSub').textContent = `150-160g cada uno`;
+        document.getElementById('tipoAlitasLabel').textContent = `${alitas} Alitas`;
+        document.getElementById('tipoAlitasSub').textContent = `Crujientes y jugosas`;
+        document.getElementById('tipoModal').classList.replace('hidden','flex');
+    } else {
+        abrirSalsaModal();
+    }
+}
+
+function elegirTipo(tipo) {
+    const alitas = alitasMap[currentProduct.pieces];
+    if (tipo === 'alitas' && alitas) {
+        currentProduct.name = currentProduct.name.replace('Boneless','Alitas') + ` (${alitas} alitas)`;
+    } else {
+        currentProduct.name = currentProduct.name + ` (${currentProduct.pieces} boneless)`;
+    }
+    closeTipoModal();
+    abrirSalsaModal();
+}
+
+function closeTipoModal() {
+    document.getElementById('tipoModal').classList.replace('flex','hidden');
+}
+
+// Para productos que solo permiten salsas de complemento (Cono Cargado, Papas Locas)
+function selectProductComplemento(n, p) {
+    currentProduct = { name: n, price: p, pieces: 1, maxSalsas: 1 };
+    abrirSalsaModal(salsasComplemento);
+}
+
+// ── Salsa Modal ────────────────────────────────────────────
+function abrirSalsaModal(listaSalsas) {
     selectedSalsas = [];
-    document.getElementById('modalTitle').textContent = n;
-    const t = m === 1 ? '1 salsa' : `hasta ${m} salsas`;
-    document.getElementById('modalSubtitle').textContent = `Selecciona ${t} para tus ${pc} piezas`;
-    document.getElementById('salsaOptions').innerHTML = salsas.map(s =>
+    currentProduct._salsaList = listaSalsas || salsas;
+    document.getElementById('modalTitle').textContent = currentProduct.name;
+    const t = currentProduct.maxSalsas === 1 ? '1 salsa' : `hasta ${currentProduct.maxSalsas} salsas`;
+    document.getElementById('modalSubtitle').textContent = `Selecciona ${t}`;
+    document.getElementById('salsaOptions').innerHTML = currentProduct._salsaList.map(s =>
         `<button onclick="toggleSalsa('${s}')" id="salsa-${s.replace(/ /g,'-')}" class="salsa-btn rounded-xl p-3 transition text-left font-semibold text-sm">${s}</button>`
     ).join('');
     document.getElementById('salsaModal').classList.replace('hidden','flex');
