@@ -511,7 +511,7 @@ body{
     <ul class="fam-list">
       <li>5 Boneless gigantes</li><li>10 Alitas</li>
       <li>2 Órd. Papas Clásicas</li><li>2 GranJelotes</li>
-      <li>2 Refrescos de lata</li><li>Apio y Zanahoria</li>
+      <li>2 Refrescos de 355 ml</li><li>Apio y Zanahoria</li>
     </ul>
     <div class="fam-personas">🌶️ 3 salsas a elegir</div>
   </div>
@@ -527,7 +527,7 @@ body{
     <ul class="fam-list">
       <li>10 Boneless gigantes</li><li>20 Alitas</li>
       <li>2 Órd. Papas Clásicas</li><li>2 GranJelotes</li>
-      <li>2 Refrescos de lata</li><li>Apio y Zanahoria</li>
+      <li>2 Refrescos de 355 ml</li><li>Apio y Zanahoria</li>
     </ul>
     <div class="fam-personas">🌶️ 3 salsas a elegir</div>
   </div>
@@ -623,10 +623,10 @@ body{
 
   <div class="item">
     <div class="item-left"><div class="item-name bold">Agua Natural Embotellada</div></div>
-    <div class="precio">$20</div>
+    <div class="precio">$15</div>
   </div>
   <div class="item">
-    <div class="item-left"><div class="item-name bold">Refresco de Lata (355ml)</div></div>
+    <div class="item-left"><div class="item-name bold">Refresco de 355 ml</div></div>
     <div class="precio">$25</div>
   </div>
   <div class="item" style="border-bottom:none;">
