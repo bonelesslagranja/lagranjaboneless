@@ -422,7 +422,7 @@ body{
   <div class="item">
     <div class="item-left">
       <div class="item-name bold">Individual Bestial <span class="bdg bdg-g">⭐ El Platillo Estrella</span></div>
-      <div class="item-desc2">¡El más vendido! Elige entre: <strong style="color:var(--crema)">3 piezas gigantes de boneless</strong> O <strong style="color:var(--crema)">6 alitas crujientes</strong>.<br>Viene bien reportado e incluye <strong style="color:var(--crema)">papas fritas</strong> y <strong style="color:var(--crema)">1 refresco de lata</strong> para amarrar.</div>
+      <div class="item-desc2">¡El más vendido! Elige entre: <strong style="color:var(--crema)">3 piezas gigantes de boneless</strong> O <strong style="color:var(--crema)">6 alitas crujientes</strong>.<br>Viene bien reportado e incluye <strong style="color:var(--crema)">papas fritas</strong> y <strong style="color:var(--crema)">1 refresco de 355 ml</strong> para amarrar.</div>
     </div>
     <div class="precio big">$179</div>
   </div>
@@ -490,7 +490,7 @@ body{
         <span class="bdg bdg-r" style="margin-bottom:4px;display:inline-block;">👥 Para 2-3 personas</span>
         <div class="fam-name">Sampler La Granja</div>
       </div>
-      <div class="precio big">$679</div>
+      <div class="precio big">$599</div>
     </div>
     <ul class="fam-list">
       <li>3 Boneless gigantes</li><li>12 Alitas</li>
@@ -506,7 +506,7 @@ body{
         <span class="bdg bdg-o" style="margin-bottom:4px;display:inline-block;">👨‍👩‍👧‍👦 Para 3-4 personas</span>
         <div class="fam-name">Familiar Bestial</div>
       </div>
-      <div class="precio big">$729</div>
+      <div class="precio big">$659</div>
     </div>
     <ul class="fam-list">
       <li>5 Boneless gigantes</li><li>10 Alitas</li>
@@ -522,7 +522,7 @@ body{
         <span class="bdg bdg-o" style="margin-bottom:4px;display:inline-block;">🔥 Para 4-5 personas</span>
         <div class="fam-name">Gran Bestial</div>
       </div>
-      <div class="precio big">$1,099</div>
+      <div class="precio big">$999</div>
     </div>
     <ul class="fam-list">
       <li>10 Boneless gigantes</li><li>20 Alitas</li>
@@ -538,7 +538,7 @@ body{
         <span class="bdg bdg-g" style="margin-bottom:4px;display:inline-block;">🎉 Para 6-7 personas</span>
         <div class="fam-name">Reunión La Granja</div>
       </div>
-      <div class="precio big">$1,329</div>
+      <div class="precio big">$1,219</div>
     </div>
     <ul class="fam-list">
       <li>15 Boneless gigantes</li><li>30 Alitas</li>
