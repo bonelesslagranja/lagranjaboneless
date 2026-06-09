@@ -852,7 +852,193 @@
                 <div class="space-y-3 mb-6">
                     <input type="text" id="customerName" placeholder="Tu nombre" class="input-dark">
                     <input type="tel" id="customerPhone" placeholder="Teléfono (10 dígitos)" class="input-dark">
-                    <textarea id="customerAddress" placeholder="Dirección de entrega (Colonia, calle, número)" rows="3" class="input-dark"></textarea>
+                   <!-- ZONA Y COLONIA -->
+<select id="customerZona" onchange="actualizarCostoEnvio()" class="input-dark">
+    <option value="">🛵 Selecciona tu zona / colonia...</option>
+
+    <optgroup label="📍 Zona 1 — $30 (Colonias cercanas)">
+        <option value="30|Presa La Laguna">Presa La Laguna</option>
+        <option value="30|Presa La Laguna (Ampliación)">Presa La Laguna (Ampliación)</option>
+        <option value="30|Zona Centro">Zona Centro</option>
+        <option value="30|Rodríguez">Rodríguez (y Ampliación)</option>
+        <option value="30|Longoria">Longoria (y Ampliación)</option>
+        <option value="30|Del Prado">Del Prado</option>
+        <option value="30|Ribereña">Ribereña</option>
+        <option value="30|Bellavista">Bellavista</option>
+        <option value="30|Ayuntamiento">Ayuntamiento</option>
+        <option value="30|Ferrocarril Poniente">Ferrocarril Poniente</option>
+        <option value="30|Ferrocarril Oriente">Ferrocarril Oriente</option>
+        <option value="30|Morelos">Morelos (y Ampliación)</option>
+        <option value="30|Lázaro Cárdenas">Lázaro Cárdenas (y Ampliación)</option>
+        <option value="30|Obrera">Obrera</option>
+        <option value="30|Petrolera">Petrolera (y Ampliación)</option>
+        <option value="30|Constitución">Constitución (y Ampliación)</option>
+        <option value="30|Del Valle">Del Valle (y Ampliación)</option>
+        <option value="30|Revolución Verde">Revolución Verde</option>
+        <option value="30|Revolución Obrera">Revolución Obrera</option>
+        <option value="30|Las Mitras">Las Mitras (y Ampliación)</option>
+        <option value="30|Loma Alta">Loma Alta</option>
+        <option value="30|Rosita">Rosita</option>
+        <option value="30|Santa Cruz">Santa Cruz</option>
+        <option value="30|Chapultepec">Chapultepec</option>
+        <option value="30|Cuauhtémoc">Cuauhtémoc</option>
+        <option value="30|Azteca">Azteca</option>
+        <option value="30|Aquiles Serdán">Aquiles Serdán (y Ampliaciones)</option>
+        <option value="30|Emiliano Zapata">Emiliano Zapata</option>
+        <option value="30|Ricardo Flores Magón">Ricardo Flores Magón</option>
+        <option value="30|Tamaulipas">Tamaulipas</option>
+        <option value="30|Valle Verde">Valle Verde</option>
+        <option value="30|Vicente Guerrero">Vicente Guerrero</option>
+        <option value="30|Virreyes">Virreyes</option>
+        <option value="30|Ramos">Ramos</option>
+        <option value="30|San Ricardo">San Ricardo</option>
+        <option value="30|Simón Rodríguez">Simón Rodríguez</option>
+        <option value="30|Reséndez Fierro">Reséndez Fierro</option>
+        <option value="30|Bernabé Sosa">Bernabé Sosa</option>
+        <option value="30|La Laguna">La Laguna (y Ampliación)</option>
+        <option value="30|Delicias">Delicias (y Ampliación)</option>
+        <option value="30|Del Río">Del Río</option>
+    </optgroup>
+
+    <optgroup label="📍 Zona 2 — $50 (Colonias intermedias)">
+        <option value="50|Las Fuentes">Las Fuentes (todas las secciones)</option>
+        <option value="50|Fracc. Las Fuentes">Fracc. Las Fuentes</option>
+        <option value="50|Fuentes Coloniales">Fuentes Coloniales</option>
+        <option value="50|Nogalar">Nogalar</option>
+        <option value="50|Del Bosque Norte">Del Bosque Norte</option>
+        <option value="50|Del Bosque Sur">Del Bosque Sur</option>
+        <option value="50|Cumbres">Cumbres (y Prolongación)</option>
+        <option value="50|Fracc. Campestre">Fracc. Campestre</option>
+        <option value="50|Fracc. Arboledas">Fracc. Arboledas</option>
+        <option value="50|Jardines Coloniales">Jardines Coloniales</option>
+        <option value="50|García Rojas">García Rojas</option>
+        <option value="50|Santa Cecilia">Santa Cecilia</option>
+        <option value="50|Santa María">Santa María</option>
+        <option value="50|Valle Dorado">Valle Dorado</option>
+        <option value="50|Loma Linda">Loma Linda</option>
+        <option value="50|Las Torres">Las Torres</option>
+        <option value="50|Leyes de Reforma">Leyes de Reforma</option>
+        <option value="50|Hidalgo">Hidalgo</option>
+        <option value="50|Adolfo López Mateos">Adolfo López Mateos (y Ampliación)</option>
+        <option value="50|Marte R. Gómez">Marte R. Gómez</option>
+        <option value="50|Benito Juárez">Benito Juárez</option>
+        <option value="50|Roma">Roma</option>
+        <option value="50|Modelo">Modelo</option>
+        <option value="50|México">México</option>
+        <option value="50|Fundadores">Fundadores</option>
+        <option value="50|Luis Donaldo Colosio">Luis Donaldo Colosio (y Ampliación)</option>
+        <option value="50|Universitaria">Universitaria</option>
+        <option value="50|Gómez Lira">Gómez Lira</option>
+        <option value="50|Las Milpas">Las Milpas (1, 2 y 3)</option>
+        <option value="50|Central de Abastos">Central de Abastos</option>
+        <option value="50|Jacinto López">Jacinto López (1, 2 y 3)</option>
+        <option value="50|Ramón Pérez García">Ramón Pérez García (1, 2, 3 y 4)</option>
+        <option value="50|Pedro J. Méndez">Pedro J. Méndez (y Ampliación)</option>
+        <option value="50|Independencia">Independencia</option>
+        <option value="50|Del Maestro">Del Maestro (y Ampliación)</option>
+        <option value="50|Satélite">Satélite (1 y 2)</option>
+        <option value="50|Lucio Blanco">Lucio Blanco</option>
+        <option value="50|La Joya">La Joya (y Ampliación)</option>
+        <option value="50|Las Palmas">Las Palmas</option>
+        <option value="50|Fracc. Los Olivos">Fracc. Los Olivos</option>
+        <option value="50|Fracc. Lomas del Villar">Fracc. Lomas del Villar</option>
+        <option value="50|Paseo de las Flores">Paseo de las Flores (y Ampliación)</option>
+        <option value="50|Nuevo Milenio">Nuevo Milenio (y Ampliación)</option>
+        <option value="50|Renacimiento">Renacimiento (y Ampliación)</option>
+        <option value="50|16 de Septiembre">16 de Septiembre (y Ampliación)</option>
+        <option value="50|20 de Noviembre">20 de Noviembre</option>
+        <option value="50|Francisco Villa">Francisco Villa</option>
+        <option value="50|Francisco Sarabia">Francisco Sarabia</option>
+        <option value="50|Nuevo Reynosa">Nuevo Reynosa</option>
+        <option value="50|Bienestar">Bienestar (y Ampliación)</option>
+        <option value="50|Unidad Obrera">Unidad Obrera</option>
+        <option value="50|Villa Real">Villa Real</option>
+        <option value="50|Villas del Parque">Villas del Parque</option>
+        <option value="50|Villas del Palmar">Villas del Palmar</option>
+    </optgroup>
+
+    <optgroup label="📍 Zona 3 — $70 (Colonias alejadas)">
+        <option value="70|Fracc. Bugambilias">Fracc. Bugambilias</option>
+        <option value="70|Fracc. Condado del Norte">Fracc. Condado del Norte</option>
+        <option value="70|Valle Alto">Valle Alto (y Ampliación)</option>
+        <option value="70|Loma Real">Loma Real</option>
+        <option value="70|Lomas de Jarachina">Lomas de Jarachina (Norte y Sur)</option>
+        <option value="70|Nuevo México">Nuevo México (1 al 5)</option>
+        <option value="70|Fracc. San Marcos">Fracc. San Marcos (1 y 2)</option>
+        <option value="70|Fracc. San Valentín">Fracc. San Valentín (y Ampliación)</option>
+        <option value="70|Fracc. Santa Fe">Fracc. Santa Fe</option>
+        <option value="70|Fracc. Tecnológico">Fracc. Tecnológico</option>
+        <option value="70|Fracc. Valle del Bravo">Fracc. Valle del Bravo</option>
+        <option value="70|Fracc. Vista Hermosa">Fracc. Vista Hermosa</option>
+        <option value="70|Hacienda del Sol">Hacienda del Sol</option>
+        <option value="70|Hacienda Las Bugambilias">Hacienda Las Bugambilias (y Ampliación)</option>
+        <option value="70|Solidaridad">Solidaridad</option>
+        <option value="70|Granjas Económicas del Norte">Granjas Económicas del Norte</option>
+        <option value="70|Campestre 1 y 2">Campestre 1 y 2</option>
+        <option value="70|Colinas del Pedregal">Colinas del Pedregal</option>
+        <option value="70|Los Fresnos">Los Fresnos</option>
+        <option value="70|Puerta del Sol">Puerta del Sol (1 y 2)</option>
+        <option value="70|Paseo Residencial">Paseo Residencial</option>
+        <option value="70|Rincón del Valle">Rincón del Valle</option>
+        <option value="70|Sendas Residencial">Sendas Residencial</option>
+        <option value="70|Villas del Roble">Villas del Roble (y Ampliación)</option>
+        <option value="70|Fracc. Country">Fracc. Country</option>
+        <option value="70|Fracc. Los Laureles">Fracc. Los Laureles</option>
+        <option value="70|Fracc. Portal San Miguel">Fracc. Portal San Miguel</option>
+        <option value="70|Balcones de Alcalá">Balcones de Alcalá (1, 2 y 3)</option>
+        <option value="70|Rincón de las Flores">Rincón de las Flores (y Ampliación)</option>
+        <option value="70|Riveras del Carmen">Riveras del Carmen (y Ampliación)</option>
+        <option value="70|Margarita Maza de Juárez">Margarita Maza de Juárez (1 al 4)</option>
+        <option value="70|Américo Villarreal">Américo Villarreal (y Ampliación)</option>
+        <option value="70|Arcoiris">Arcoiris (y Ampliación)</option>
+        <option value="70|Ernesto Zedillo">Ernesto Zedillo</option>
+        <option value="70|Valle Soleado">Valle Soleado</option>
+        <option value="70|Valles del Sol">Valles del Sol</option>
+        <option value="70|Villa Diamante">Villa Diamante</option>
+        <option value="70|Villa Esmeralda">Villa Esmeralda (y Ampliación)</option>
+        <option value="70|Villas de IMAQ">Villas de IMAQ</option>
+        <option value="70|Campestre del Lago">Campestre del Lago</option>
+        <option value="70|El Campanario">El Campanario</option>
+        <option value="70|Residencial del Valle">Residencial del Valle</option>
+    </optgroup>
+
+    <optgroup label="📍 Zona 4 — $100 (Colonias más lejanas)">
+        <option value="100|Fracc. Country (Rancho Grande)">Fracc. Country (Rancho Grande)</option>
+        <option value="100|Fracc. Hacienda Las Fuentes III y IV">Fracc. Hacienda Las Fuentes III y IV</option>
+        <option value="100|Fracc. Los Caracoles">Fracc. Los Caracoles (I y II)</option>
+        <option value="100|Rancho Grande">Rancho Grande (y Ampliación)</option>
+        <option value="100|Riveras del Bosque">Riveras del Bosque</option>
+        <option value="100|Riveras del Rancho Grande">Riveras del Rancho Grande</option>
+        <option value="100|Manuel Cavazos Lerma">Manuel Cavazos Lerma</option>
+        <option value="100|Bosques de las Haciendas">Bosques de las Haciendas</option>
+        <option value="100|Fracc. Montecristo">Fracc. Montecristo</option>
+        <option value="100|Villas de las Haciendas">Villas de las Haciendas</option>
+        <option value="100|Fracc. Desarrollo Haciendas">Fracc. Desarrollo Haciendas</option>
+        <option value="100|Hacienda Las Fuentes I y II">Hacienda Las Fuentes I y II</option>
+        <option value="100|Privadas del Norte">Privadas del Norte</option>
+        <option value="100|Privadas de la Hacienda">Privadas de la Hacienda</option>
+        <option value="100|Las Quintas">Las Quintas</option>
+        <option value="100|Fracc. Río Grande">Fracc. Río Grande</option>
+        <option value="100|Fracc. Polanco">Fracc. Polanco</option>
+        <option value="100|Fracc. Del Sol">Fracc. Del Sol</option>
+        <option value="100|Riveras del Aeropuerto">Riveras del Aeropuerto</option>
+        <option value="100|Lampacitos">Lampacitos</option>
+        <option value="100|Loma Blanca">Loma Blanca</option>
+        <option value="100|Nuevo Amanecer">Nuevo Amanecer</option>
+        <option value="100|Ejido La Escondida">Ejido La Escondida (y Prolongación)</option>
+        <option value="100|La Escondida">La Escondida</option>
+        <option value="100|Voluntad y Trabajo">Voluntad y Trabajo</option>
+        <option value="100|Vamos Tamaulipas">Vamos Tamaulipas</option>
+    </optgroup>
+</select>
+
+<!-- Aviso costo de envío -->
+<div id="envioInfo" class="hidden rounded-xl px-4 py-3 text-sm font-bold" style="background:#1a3a1a;border:1px solid #16a34a;color:#4ade80;">
+    🛵 Costo de envío: <span id="envioCosto">$0</span>
+</div>
+
+<!-- Calle y número -->
+<input type="text" id="customerCalle" placeholder="Calle y número" class="input-dark">
                     <textarea id="customerNotes" placeholder="Notas adicionales (opcional)" rows="2" class="input-dark"></textarea>
                 </div>
                 <!-- Datos de transferencia -->
@@ -1118,13 +1304,30 @@ function openCart() {
 function closeCart() {
     document.getElementById('cartModal').classList.replace('flex','hidden');
 }
+// ── Costo de envío por zona ──────────────────────────────
+var costoEnvio = 0;
 
+function actualizarCostoEnvio() {
+    var select = document.getElementById('customerZona');
+    var val = select.value;
+    if (!val) {
+        costoEnvio = 0;
+        document.getElementById('envioInfo').classList.add('hidden');
+        return;
+    }
+    costoEnvio = parseInt(val.split('|')[0]);
+    document.getElementById('envioCosto').textContent = '$' + costoEnvio;
+    document.getElementById('envioInfo').classList.remove('hidden');
+}
 function sendToWhatsApp() {
     const n = document.getElementById('customerName').value.trim();
     const ph = document.getElementById('customerPhone').value.trim();
-    const a = document.getElementById('customerAddress').value.trim();
+    var zonaVal = document.getElementById('customerZona').value;
+    var coloniaSel = zonaVal ? zonaVal.split('|')[1] : '';
+    var calleNum = document.getElementById('customerCalle').value.trim();
+    var a = coloniaSel && calleNum ? 'Col. ' + coloniaSel + ', ' + calleNum : '';
     const nt = document.getElementById('customerNotes').value.trim();
-    if (!n || !ph || !a) { alert('Por favor completa tu nombre, teléfono y dirección'); return; }
+    if (!n || !ph || !coloniaSel || !calleNum) { alert('Por favor completa tu nombre, teléfono, colonia y calle'); return; }
     if (cart.length === 0) { alert('Tu carrito está vacío'); return; }
     const t = cart.reduce((s, i) => s + i.price, 0);
     let m = `🐔 *NUEVO PEDIDO - BONELESS LA GRANJA*\n\n👤 *Cliente:* ${n}\n📱 *Teléfono:* ${ph}\n📍 *Dirección:* ${a}\n\n🛒 *PEDIDO:*\n━━━━━━━━━━━━━━━\n`;
@@ -1132,7 +1335,7 @@ function sendToWhatsApp() {
         m += `\n${x+1}. *${i.name}* - $${i.price}\n`;
         if (i.salsas) m += `   🌶️ Salsas: ${i.salsas.join(', ')}\n`;
     });
-    m += `\n━━━━━━━━━━━━━━━\n💰 *TOTAL: $${t}*\n`;
+    m += `\n━━━━━━━━━━━━━━━\n🛵 *Envío: $${costoEnvio}*\n💰 *TOTAL PRODUCTOS: $${t}*\n💵 *TOTAL CON ENVÍO: $${t + costoEnvio}*\n`;
     if (nt) m += `\n📝 Notas: ${nt}`;
     window.open('https://wa.me/522205611383?text=' + encodeURIComponent(m), '_blank');
 
