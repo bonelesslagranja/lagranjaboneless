@@ -593,7 +593,7 @@
                     </ul>
                 </div>
                 <p class="text-orange-400 text-xs font-bold mb-4">🌶️ 2 salsas a elegir</p>
-                <button onclick="selectProduct('Sampler La Granja', 599, 3, 2)"
+                <button onclick="selectProductFamiliar('Sampler La Granja', 599, 2)"
                     class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-black py-3 rounded-xl hover:from-orange-600 hover:to-red-600 transition">
                     🛒 Agregar al carrito
                 </button>
@@ -623,7 +623,7 @@
                     </ul>
                 </div>
                 <p class="text-orange-400 text-xs font-bold mb-4">🌶️ 3 salsas a elegir</p>
-                <button onclick="selectProduct('Familiar Bestial', 659, 5, 3)"
+                <button onclick="selectProductFamiliar('Familiar Bestial', 659, 3)"
                     class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-black py-3 rounded-xl hover:from-orange-600 hover:to-red-600 transition">
                     🛒 Agregar al carrito
                 </button>
@@ -653,7 +653,7 @@
                     </ul>
                 </div>
                 <p class="text-orange-400 text-xs font-bold mb-4">🌶️ 3 salsas a elegir</p>
-                <button onclick="selectProduct('Gran Bestial', 999, 10, 3)"
+                <button onclick="selectProductFamiliar('Gran Bestial', 999, 3)"
                     class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-black py-3 rounded-xl hover:from-orange-600 hover:to-red-600 transition">
                     🛒 Agregar al carrito
                 </button>
@@ -685,7 +685,7 @@
                     </ul>
                 </div>
                 <p class="text-orange-400 text-xs font-bold mb-4">🌶️ 4 salsas a elegir</p>
-                <button onclick="selectProduct('Reunión La Granja', 1129, 15, 4)"
+                <button onclick="selectProductFamiliar('Reunión La Granja', 1129, 4)"
                     class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-black py-3 rounded-xl hover:from-orange-600 hover:to-red-600 transition">
                     🛒 Agregar al carrito
                 </button>
@@ -1329,6 +1329,12 @@ function closeTipoModal() {
 function selectProductComplemento(n, p) {
     currentProduct = { name: n, price: p, pieces: 1, maxSalsas: 1 };
     abrirSalsaModal(salsasComplemento);
+}
+
+// Para paquetes familiares (van directo al modal de salsas)
+function selectProductFamiliar(n, p, m) {
+    currentProduct = { name: n, price: p, pieces: 0, maxSalsas: m };
+    abrirSalsaModal();
 }
 
 // ── Salsa Modal ────────────────────────────────────────────
