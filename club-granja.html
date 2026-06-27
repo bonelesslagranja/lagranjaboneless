@@ -155,9 +155,11 @@ const db = getFirestore(app);
 
 const ADMIN_CODE = 'GRANJA2026';
 const REWARDS = [
+  { stamps: 3, emoji: '🧂', name: 'Aderezo Extra', desc: '¡Ponle más sabor!', value: 19 },
   { stamps: 5, emoji: '🍟', name: 'Cono de Papas', desc: 'Orden de papas gratis', value: 69 },
-  { stamps: 8, emoji: '🌽', name: 'GranjElote', desc: 'GranjElote gratis', value: 69 },
-  { stamps: 10, emoji: '🌮', name: 'Panchos La Granja', desc: 'Panchos La Granja gratis', value: 179 }
+  { stamps: 10, emoji: '🌽', name: 'GranjElote', desc: 'GranjElote cortesía de la casa', value: 69 },
+  { stamps: 15, emoji: '🌮', name: 'Panchos La Granja', desc: 'Panchos La Granja gratis', value: 179 },
+  { stamps: 20, emoji: '🍗', name: 'Paquete Jumbo Alitas', desc: '10 piezas de alitas', value: 199 }
 ];
 const STAMP_EMOJIS = ['🍗','🔥','🍖','💪','🌽','🍟','🌶️','🧀','🏆','🎉'];
 
@@ -276,7 +278,7 @@ function showMainScreen() {
 function renderStamps() {
   const grid = document.getElementById('stamps-grid');
   grid.innerHTML = '';
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 20; i++) {
     const stamp = document.createElement('div');
     stamp.className = 'stamp';
     if (i < currentUser.stamps) {
@@ -285,9 +287,9 @@ function renderStamps() {
     }
     grid.appendChild(stamp);
   }
-  const progress = (currentUser.stamps / 10) * 100;
+  const progress = (currentUser.stamps / 20) * 100;
   document.getElementById('progress-fill').style.width = progress + '%';
-  document.getElementById('progress-text').textContent = currentUser.stamps + ' de 10 sellos';
+  document.getElementById('progress-text').textContent = currentUser.stamps + ' de 20 sellos';
 }
 
 function renderRewards() {
@@ -378,7 +380,7 @@ function renderAdminClients() {
     div.className = 'client-item';
     div.innerHTML = `
       <div class="client-name">${client.name}</div>
-      <div class="client-info">${client.phone} · ${client.stamps}/10 sellos</div>
+      <div class="client-info">${client.phone} · ${client.stamps}/20 sellos</div>
       <div class="client-actions">
         <button class="btn-primary btn-small" data-key="${key}" data-action="add">+1 Sello</button>
         <button class="btn-secondary btn-small" data-key="${key}" data-action="reset">Reiniciar</button>
@@ -392,7 +394,7 @@ function renderAdminClients() {
       const action = this.dataset.action;
       if (action === 'add') {
         const client = allClients[key];
-        const newStamps = Math.min(10, (client.stamps || 0) + 1);
+        const newStamps = Math.min(20, (client.stamps || 0) + 1);
         const history = client.history || [];
         history.push({ date: Date.now(), stamps: 1, note: 'Sello agregado por admin' });
         await updateDoc(doc(db, 'clients', key), { stamps: newStamps, history });
