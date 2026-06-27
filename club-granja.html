@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Club Granja - Boneless La Granja</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--orange:#ff9800;--red:#ff5722;--gold:#ffd54f;--green:#4caf50;--dark:#1a0e05}
+html,body{width:100%;height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--dark);color:#fff;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+.screen{position:fixed;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;padding-top:calc(20px + env(safe-area-inset-top));padding-bottom:calc(20px + env(safe-area-inset-bottom));overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--dark)}
+.screen.active{display:flex}
+.logo{width:200px;height:auto;margin-bottom:20px}
+h1{font-size:28px;color:var(--gold);margin-bottom:10px;text-align:center}
+p{font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:20px;text-align:center}
+input{width:100%;max-width:300px;padding:15px;margin-bottom:15px;border:2px solid rgba(255,152,0,0.3);border-radius:12px;background:rgba(255,255,255,0.1);color:#fff;font-size:16px;outline:none}
+input:focus{border-color:var(--orange)}
+input::placeholder{color:rgba(255,255,255,0.4)}
+button{width:100%;max-width:300px;padding:15px;margin-bottom:10px;border:none;border-radius:12px;font-size:18px;font-weight:600;cursor:pointer;-webkit-appearance:none;-webkit-tap-highlight-color:rgba(255,152,0,0.3)}
+.btn-primary{background:linear-gradient(135deg,var(--orange),var(--red));color:#fff}
+.btn-secondary{background:rgba(255,255,255,0.1);color:var(--gold);border:2px solid rgba(255,152,0,0.3)}
+.btn-small{padding:10px 20px;font-size:14px;max-width:200px}
+.error{color:#ff5252;font-size:14px;margin-bottom:10px;min-height:20px}
+.card{width:100%;max-width:400px;background:linear-gradient(145deg,#3a2210,#251508);border:3px solid rgba(255,152,0,0.3);border-radius:20px;padding:20px;margin-bottom:20px}
+.stamps-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.stamp{aspect-ratio:1;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;background:rgba(255,255,255,0.05);border:2px dashed rgba(255,255,255,0.1)}
+.stamp.filled{background:linear-gradient(145deg,rgba(255,152,0,0.2),rgba(255,87,34,0.1));border:2px solid rgba(255,152,0,0.4)}
+.progress-bar{width:100%;height:10px;background:rgba(255,255,255,0.1);border-radius:5px;overflow:hidden;margin-bottom:10px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--red));transition:width 0.3s}
+.reward{display:flex;align-items:center;padding:15px;margin-bottom:10px;border-radius:12px;background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.1)}
+.reward.unlocked{background:linear-gradient(135deg,rgba(76,175,80,0.15),rgba(76,175,80,0.05));border-color:rgba(76,175,80,0.4)}
+.reward-icon{font-size:32px;margin-right:15px}
+.reward-info{flex:1}
+.reward-name{font-weight:600;font-size:16px;margin-bottom:4px}
+.reward-desc{font-size:13px;color:rgba(255,255,255,0.5)}
+.reward-stamps{font-size:14px;color:var(--gold);font-weight:600}
+.header{width:100%;max-width:400px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.header-logo{width:40px;height:40px;border-radius:8px}
+.header-user{font-size:14px;color:var(--gold)}
+.qr-container{background:#fff;padding:20px;border-radius:16px;margin:20px 0}
+.qr-container img{display:block;width:200px;height:200px}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px}
+.modal.active{display:flex}
+.modal-content{background:linear-gradient(145deg,#3a2210,#251508);border:2px solid rgba(255,152,0,0.3);border-radius:20px;padding:30px;max-width:350px;width:100%;text-align:center}
+.modal-emoji{font-size:60px;margin-bottom:15px}
+.modal-code{font-size:24px;font-weight:700;color:var(--gold);background:rgba(0,0,0,0.3);padding:15px;border-radius:12px;margin:15px 0;letter-spacing:3px}
+.client-item{background:rgba(255,255,255,0.05);border:2px solid rgba(255,152,0,0.2);border-radius:12px;padding:15px;margin-bottom:10px}
+.client-name{font-weight:600;font-size:16px;margin-bottom:5px}
+.client-info{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:10px}
+.client-actions{display:flex;gap:10px}
+</style>
+</head>
+<body>
+
+<div id="screen-register" class="screen active">
+  <img src="logo-blg.png" alt="Logo" class="logo">
+  <h1>Club Granja</h1>
+  <p>Acumula sellos y canjealos por premios</p>
+  <input type="text" id="input-name" placeholder="Tu nombre" autocomplete="name">
+  <input type="tel" id="input-phone" placeholder="Tu telefono" autocomplete="tel">
+  <div class="error" id="error-register"></div>
+  <button class="btn-primary" id="btn-register">Registrarme</button>
+  <button class="btn-secondary" id="btn-login">Ya tengo cuenta</button>
+  <button class="btn-secondary btn-small" id="btn-admin">Acceso Admin</button>
+</div>
+
+<div id="screen-main" class="screen">
+  <div class="header">
+    <img src="logo-blg.png" alt="Logo" class="header-logo">
+    <div class="header-user" id="user-name"></div>
+    <button class="btn-secondary btn-small" id="btn-logout">Salir</button>
+  </div>
+  <div class="card">
+    <h1 style="font-size:20px;margin-bottom:15px;">Tu Tarjeta de Sellos</h1>
+    <div class="stamps-grid" id="stamps-grid"></div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <p style="font-size:14px;margin:0;" id="progress-text">0 de 10 sellos</p>
+  </div>
+  <div class="card">
+    <h1 style="font-size:20px;margin-bottom:15px;">Recompensas</h1>
+    <div id="rewards-list"></div>
+  </div>
+  <button class="btn-secondary" id="btn-show-qr">Mostrar mi QR</button>
+</div>
+
+<div id="screen-qr" class="screen">
+  <h1>Mi Codigo QR</h1>
+  <p>Muestra este codigo al cajero</p>
+  <div class="qr-container">
+    <img id="qr-image" src="" alt="QR Code">
+  </div>
+  <p id="qr-name" style="font-weight:600;color:var(--gold);"></p>
+  <button class="btn-secondary" id="btn-back-qr">Volver</button>
+</div>
+
+<div id="screen-admin-login" class="screen">
+  <img src="logo-blg.png" alt="Logo" class="logo">
+  <h1>Panel Admin</h1>
+  <input type="password" id="input-admin-code" placeholder="Codigo de admin">
+  <div class="error" id="error-admin"></div>
+  <button class="btn-primary" id="btn-admin-login">Entrar</button>
+  <button class="btn-secondary" id="btn-admin-back">Volver</button>
+</div>
+
+<div id="screen-admin-panel" class="screen">
+  <h1>Panel Admin</h1>
+  <button class="btn-primary" id="btn-scan-qr" style="margin-bottom:20px;">📷 Escanear QR</button>
+  <div id="qr-reader" style="width:100%;max-width:400px;display:none;"></div>
+  <div id="scan-result" style="display:none;width:100%;max-width:400px;" class="card">
+    <h2 style="font-size:20px;margin-bottom:15px;color:var(--gold);">Cliente Encontrado</h2>
+    <p id="scan-client-name" style="font-size:18px;font-weight:bold;margin-bottom:10px;"></p>
+    <p id="scan-client-phone" style="font-size:16px;margin-bottom:10px;"></p>
+    <p id="scan-client-stamps" style="font-size:16px;margin-bottom:20px;"></p>
+    <button class="btn-primary" id="btn-add-stamp">+1 Sello</button>
+    <button class="btn-secondary" id="btn-cancel-scan">Cancelar</button>
+  </div>
+  <input type="text" id="input-search" placeholder="Buscar por nombre o telefono">
+  <div id="clients-list" style="width:100%;max-width:400px;"></div>
+  <button class="btn-secondary btn-small" id="btn-admin-logout" style="margin-top:20px;">Salir</button>
+</div>
+
+<div id="modal-redeem" class="modal">
+  <div class="modal-content">
+    <div class="modal-emoji" id="redeem-emoji"></div>
+    <h1 style="color:var(--green);">¡Premio desbloqueado!</h1>
+    <p id="redeem-text"></p>
+    <div class="modal-code" id="redeem-code"></div>
+    <p style="font-size:12px;">Muestra este codigo al cajero</p>
+    <button class="btn-primary" id="btn-close-redeem">Listo</button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// ============================================
+// IMPORTANTE: REEMPLAZA ESTOS VALORES CON TUS CREDENCIALES DE FIREBASE
+// ============================================
+const firebaseConfig = {
+  apiKey: "AIzaSyBlZRASn5xft5gG69qsLJbGWaeDyJC2IEw",
+  authDomain: "boneless-la-granja.firebaseapp.com",
+  projectId: "boneless-la-granja",
+  storageBucket: "boneless-la-granja.firebasestorage.app",
+  messagingSenderId: "785215822216",
+  appId: "1:785215822216:web:05126f7d54db5061f1423d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const ADMIN_CODE = 'GRANJA2026';
+const REWARDS = [
+  { stamps: 5, emoji: '🍟', name: 'Papas Clasicas', desc: 'Orden de papas gratis', value: 79 },
+  { stamps: 8, emoji: '🌽', name: 'GranjElote', desc: 'GranjElote gratis', value: 69 },
+  { stamps: 10, emoji: '🌮', name: 'Panchos La Granja', desc: 'Panchos La Granja gratis', value: 179 }
+];
+const STAMP_EMOJIS = ['🍗','🔥','🍖','💪','🌽','🍟','🌶️','🧀','🏆','🎉'];
+
+let currentUser = null;
+let allClients = {};
+let unsubscribe = null;
+let html5QrCode = null;
+let scannedClientKey = null;
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function loadClientsRealtime() {
+  if (unsubscribe) unsubscribe();
+  unsubscribe = onSnapshot(collection(db, 'clients'), (snapshot) => {
+    allClients = {};
+    snapshot.forEach(doc => {
+      allClients[doc.id] = doc.data();
+    });
+    if (currentUser && allClients[currentUser.key]) {
+      currentUser = { key: currentUser.key, ...allClients[currentUser.key] };
+      if (document.getElementById('screen-main').classList.contains('active')) {
+        renderStamps();
+        renderRewards();
+      }
+    }
+    if (document.getElementById('screen-admin-panel').classList.contains('active')) {
+      renderAdminClients();
+    }
+  });
+}
+
+async function register() {
+  const name = document.getElementById('input-name').value.trim();
+  const phone = document.getElementById('input-phone').value.trim();
+  const err = document.getElementById('error-register');
+  
+  if (!name || name.length < 2) {
+    err.textContent = 'Escribe tu nombre';
+    return;
+  }
+  if (!phone || phone.replace(/\D/g,'').length < 10) {
+    err.textContent = 'Telefono invalido (minimo 10 digitos)';
+    return;
+  }
+  err.textContent = '';
+  
+  const key = phone.replace(/\D/g,'');
+  const clientRef = doc(db, 'clients', key);
+  const clientSnap = await getDoc(clientRef);
+  
+  if (clientSnap.exists()) {
+    err.textContent = 'Este telefono ya esta registrado';
+    return;
+  }
+  
+  await setDoc(clientRef, {
+    name: name,
+    phone: phone,
+    stamps: 0,
+    history: [],
+    redeemed: [],
+    created: Date.now()
+  });
+  
+  currentUser = { key: key, name, phone, stamps: 0, history: [], redeemed: [] };
+  localStorage.setItem('blg_session', JSON.stringify({ key: key }));
+  showMainScreen();
+  alert('¡Bienvenido al Club Granja, ' + name.split(' ')[0] + '!');
+}
+
+async function login() {
+  const phone = document.getElementById('input-phone').value.trim();
+  const err = document.getElementById('error-register');
+  
+  if (!phone || phone.replace(/\D/g,'').length < 10) {
+    err.textContent = 'Escribe tu telefono';
+    return;
+  }
+  err.textContent = '';
+  
+  const key = phone.replace(/\D/g,'');
+  const clientRef = doc(db, 'clients', key);
+  const clientSnap = await getDoc(clientRef);
+  
+  if (!clientSnap.exists()) {
+    err.textContent = 'No encontramos tu cuenta. Registrate primero.';
+    return;
+  }
+  
+  const data = clientSnap.data();
+  currentUser = { key: key, ...data };
+  localStorage.setItem('blg_session', JSON.stringify({ key: key }));
+  showMainScreen();
+  alert('¡Hola de nuevo, ' + currentUser.name.split(' ')[0] + '!');
+}
+
+function logout() {
+  localStorage.removeItem('blg_session');
+  currentUser = null;
+  document.getElementById('input-name').value = '';
+  document.getElementById('input-phone').value = '';
+  document.getElementById('error-register').textContent = '';
+  showScreen('screen-register');
+}
+
+function showMainScreen() {
+  showScreen('screen-main');
+  document.getElementById('user-name').textContent = currentUser.name;
+  renderStamps();
+  renderRewards();
+}
+
+function renderStamps() {
+  const grid = document.getElementById('stamps-grid');
+  grid.innerHTML = '';
+  for (let i = 0; i < 10; i++) {
+    const stamp = document.createElement('div');
+    stamp.className = 'stamp';
+    if (i < currentUser.stamps) {
+      stamp.classList.add('filled');
+      stamp.textContent = STAMP_EMOJIS[i];
+    }
+    grid.appendChild(stamp);
+  }
+  const progress = (currentUser.stamps / 10) * 100;
+  document.getElementById('progress-fill').style.width = progress + '%';
+  document.getElementById('progress-text').textContent = currentUser.stamps + ' de 10 sellos';
+}
+
+function renderRewards() {
+  const list = document.getElementById('rewards-list');
+  list.innerHTML = '';
+  REWARDS.forEach(reward => {
+    const div = document.createElement('div');
+    div.className = 'reward';
+    const unlocked = currentUser.stamps >= reward.stamps;
+    if (unlocked) div.classList.add('unlocked');
+    div.innerHTML = `
+      <div class="reward-icon">${reward.emoji}</div>
+      <div class="reward-info">
+        <div class="reward-name">${reward.name}</div>
+        <div class="reward-desc">${reward.desc}</div>
+      </div>
+      <div class="reward-stamps">${reward.stamps} sellos</div>
+    `;
+    if (unlocked) {
+      const btn = document.createElement('button');
+      btn.className = 'btn-primary btn-small';
+      btn.textContent = 'Canjear';
+      btn.style.marginLeft = '10px';
+      btn.addEventListener('click', () => redeemReward(reward.stamps));
+      div.appendChild(btn);
+    }
+    list.appendChild(div);
+  });
+}
+
+async function redeemReward(tierStamps) {
+  const reward = REWARDS.find(r => r.stamps === tierStamps);
+  if (!reward || currentUser.stamps < tierStamps) return;
+  if (currentUser.redeemed && currentUser.redeemed.includes(tierStamps)) {
+    alert('Ya canjeaste este premio');
+    return;
+  }
+  const code = 'BLG-' + Math.random().toString(36).substring(2,8).toUpperCase();
+  const redeemed = currentUser.redeemed || [];
+  redeemed.push(tierStamps);
+  const history = currentUser.history || [];
+  history.push({ date: Date.now(), stamps: 0, note: 'Canjeo: ' + reward.name + ' (Codigo: ' + code + ')' });
+  await updateDoc(doc(db, 'clients', currentUser.key), { redeemed, history });
+  document.getElementById('redeem-emoji').textContent = reward.emoji;
+  document.getElementById('redeem-text').textContent = 'Ganaste: ' + reward.name;
+  document.getElementById('redeem-code').textContent = code;
+  document.getElementById('modal-redeem').classList.add('active');
+}
+
+function showQR() {
+  showScreen('screen-qr');
+  document.getElementById('qr-name').textContent = currentUser.name;
+  const qrData = 'BLG:' + currentUser.key;
+  const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(qrData);
+  document.getElementById('qr-image').src = qrUrl;
+}
+
+function showAdminLogin() {
+  showScreen('screen-admin-login');
+  document.getElementById('input-admin-code').value = '';
+  document.getElementById('error-admin').textContent = '';
+}
+
+function adminLogin() {
+  const code = document.getElementById('input-admin-code').value.trim();
+  const err = document.getElementById('error-admin');
+  if (code === ADMIN_CODE) {
+    showScreen('screen-admin-panel');
+    renderAdminClients();
+  } else {
+    err.textContent = 'Codigo incorrecto';
+  }
+}
+
+function renderAdminClients() {
+  const search = document.getElementById('input-search').value.toLowerCase();
+  const list = document.getElementById('clients-list');
+  list.innerHTML = '';
+  const clients = Object.entries(allClients).filter(([key, client]) => {
+    return client.name.toLowerCase().includes(search) || client.phone.includes(search);
+  });
+  if (clients.length === 0) {
+    list.innerHTML = '<p style="text-align:center;">No se encontraron clientes</p>';
+    return;
+  }
+  clients.forEach(([key, client]) => {
+    const div = document.createElement('div');
+    div.className = 'client-item';
+    div.innerHTML = `
+      <div class="client-name">${client.name}</div>
+      <div class="client-info">${client.phone} · ${client.stamps}/10 sellos</div>
+      <div class="client-actions">
+        <button class="btn-primary btn-small" data-key="${key}" data-action="add">+1 Sello</button>
+        <button class="btn-secondary btn-small" data-key="${key}" data-action="reset">Reiniciar</button>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+  list.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', async function() {
+      const key = this.dataset.key;
+      const action = this.dataset.action;
+      if (action === 'add') {
+        const client = allClients[key];
+        const newStamps = Math.min(10, (client.stamps || 0) + 1);
+        const history = client.history || [];
+        history.push({ date: Date.now(), stamps: 1, note: 'Sello agregado por admin' });
+        await updateDoc(doc(db, 'clients', key), { stamps: newStamps, history });
+        alert('Sello agregado a ' + client.name);
+      } else if (action === 'reset') {
+        if (confirm('¿Reiniciar la tarjeta de este cliente?')) {
+          await updateDoc(doc(db, 'clients', key), { stamps: 0, redeemed: [], history: [] });
+          alert('Tarjeta reiniciada');
+        }
+      }
+    });
+  });
+}
+
+// Scanner QR
+function startScanner() {
+  document.getElementById('qr-reader').style.display = 'block';
+  document.getElementById('scan-result').style.display = 'none';
+  
+  html5QrCode = new Html5Qrcode("qr-reader");
+  
+  html5QrCode.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: { width: 250, height: 250 } },
+    onScanSuccess,
+    () => {}
+  ).catch(err => {
+    console.error("Error al iniciar scanner:", err);
+    alert("No se pudo acceder a la cámara. Asegúrate de dar permisos.");
+    document.getElementById('qr-reader').style.display = 'none';
+  });
+}
+
+function onScanSuccess(decodedText) {
+  // Detener scanner
+  html5QrCode.stop().then(() => {
+    document.getElementById('qr-reader').style.display = 'none';
+  });
+  
+  // Parsear el QR (formato: BLG:telefono)
+  if (!decodedText.startsWith('BLG:')) {
+    alert('QR no válido');
+    return;
+  }
+  
+  scannedClientKey = decodedText.replace('BLG:', '');
+  const client = allClients[scannedClientKey];
+  
+  if (!client) {
+    alert('Cliente no encontrado');
+    return;
+  }
+  
+  // Mostrar datos del cliente
+  document.getElementById('scan-client-name').textContent = client.name;
+  document.getElementById('scan-client-phone').textContent = '📱 ' + client.phone;
+  document.getElementById('scan-client-stamps').textContent = '⭐ ' + client.stamps + '/10 sellos';
+  document.getElementById('scan-result').style.display = 'block';
+}
+
+async function addStampFromScan() {
+  if (!scannedClientKey) return;
+  
+  const client = allClients[scannedClientKey];
+  const newStamps = Math.min(10, (client.stamps || 0) + 1);
+  const history = client.history || [];
+  history.push({ date: Date.now(), stamps: 1, note: 'Sello agregado por QR' });
+  
+  await updateDoc(doc(db, 'clients', scannedClientKey), { 
+    stamps: newStamps, 
+    history: history 
+  });
+  
+  alert('✓ Sello agregado a ' + client.name + '\nTotal: ' + newStamps + '/10 sellos');
+  
+  // Ocultar resultado
+  document.getElementById('scan-result').style.display = 'none';
+  scannedClientKey = null;
+}
+
+function cancelScan() {
+  if (html5QrCode) {
+    html5QrCode.stop().catch(() => {});
+  }
+  document.getElementById('qr-reader').style.display = 'none';
+  document.getElementById('scan-result').style.display = 'none';
+  scannedClientKey = null;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('btn-register').addEventListener('click', register);
+  document.getElementById('btn-login').addEventListener('click', login);
+  document.getElementById('btn-admin').addEventListener('click', showAdminLogin);
+  document.getElementById('btn-logout').addEventListener('click', logout);
+  document.getElementById('btn-show-qr').addEventListener('click', showQR);
+  document.getElementById('btn-back-qr').addEventListener('click', showMainScreen);
+  document.getElementById('btn-admin-login').addEventListener('click', adminLogin);
+  document.getElementById('btn-admin-back').addEventListener('click', () => showScreen('screen-register'));
+  document.getElementById('input-search').addEventListener('input', renderAdminClients);
+  document.getElementById('btn-admin-logout').addEventListener('click', () => showScreen('screen-register'));
+  document.getElementById('btn-scan-qr').addEventListener('click', startScanner);
+  document.getElementById('btn-add-stamp').addEventListener('click', addStampFromScan);
+  document.getElementById('btn-cancel-scan').addEventListener('click', cancelScan);
+  document.getElementById('btn-close-redeem').addEventListener('click', () => {
+    document.getElementById('modal-redeem').classList.remove('active');
+  });
+  
+  loadClientsRealtime();
+  
+  const session = localStorage.getItem('blg_session');
+  if (session) {
+    const sessionData = JSON.parse(session);
+    const clientRef = doc(db, 'clients', sessionData.key);
+    getDoc(clientRef).then(clientSnap => {
+      if (clientSnap.exists()) {
+        currentUser = { key: sessionData.key, ...clientSnap.data() };
+        showMainScreen();
+      }
+    });
+  }
+});
+
+document.addEventListener('touchstart', function() {}, {passive: true});
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
